@@ -73,4 +73,5 @@ alias -g LL="2>&1 |less"
 
 autoload -Uz compinit && compinit
 
+[[ -r "$HOME/git.alias" ]] && source "$HOME/git.alias"
 [[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"

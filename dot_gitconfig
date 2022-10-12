@@ -1,0 +1,43 @@
+[user]
+	name = Tobias Becker
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	sp = stash pop
+	last = log -1 --name-status
+	rw = review --yes
+	which = log --oneline --no-merges
+[credential]
+	helper = cache
+[core]
+	longpaths = true
+	excludesfile = ~/.gitignore
+[push]
+	default = simple
+[fetch]
+	prune = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[interactive]
+    diffFilter = delta --color-only
+[rerere]
+	enabled = true
+	autoupdate = true
+[diff]
+	algorithm = histogram
+[rebase]
+	autoSquash = true
+
+# https://github.com/dandavison/delta#configuration
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
