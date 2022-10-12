@@ -29,6 +29,9 @@
 	autoupdate = true
 [diff]
 	algorithm = histogram
+	tool = vscode
+[merge]
+	tool = vscode
 [rebase]
 	autoSquash = true
 
@@ -41,3 +44,13 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
+
+[difftool]
+	prompt = false
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[mergetool]
+	prompt = false
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
