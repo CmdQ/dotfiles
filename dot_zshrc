@@ -1,0 +1,76 @@
+iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
+[[ `uname` == Darwin ]] && [[ -e $iterm_helpers ]] && source "$iterm_helpers"
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
+bindkey '^q' push-line-or-edit
+
+bindkey '\e[H' beginning-of-line
+bindkey '\e[F' end-of-line
+
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_FUNCTIONS
+setopt HIST_SAVE_NO_DUPS
+setopt PUSHD_TO_HOME
+
+# https://docs.brew.sh/Installation
+homebrew_paths=(/opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin)
+for homebrew_path in $homebrew_paths
+do
+	# This needs to be there.
+	[[ -x "$homebrew_path/bin/brew" ]] || continue
+
+	# Also load the completion goodies.
+	amazon_site_functions="$homebrew_path/share/zsh/site-functions"
+	if [[ -d $amazon_site_functions ]]
+	then
+		fpath=($amazon_site_functions $fpath)
+		autoload -U $amazon_site_functions/*(:t)
+		_amazon_completions
+	fi
+
+	# More completions.
+	homebrew_complet="$homebrew_path/share/zsh/site-functions"
+	if [[ -d $homebrew_complet ]]
+	then
+		fpath=($fpath /opt/homebrew/share/zsh/site-functions)
+	fi
+
+	# Homebrew is prepended if not already there.
+	[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
+done
+
+# This has higher priority and is installed by Homebrew, i.e. it needs to come after.
+command -v pyenv >/dev/null && eval "$(pyenv init -)"
+command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
+
+# These have lower priority and are appended.
+appends=(.local .cargo)
+for append in $appends;
+do
+	[[ -d "$HOME/$append/bin" ]] && [[ :$PATH: == *:"$HOME/$append/bin":* ]] || PATH="$PATH:$HOME/$append/bin"
+done
+
+export PATH
+
+alias -g NUL="/dev/null"
+alias -g DN=">/dev/null"
+alias -g EN="2>/dev/null"
+alias -g AN="&>/dev/null"
+alias -g G="|rg"
+alias -g IG="G -i"
+alias -g L="|less"
+alias -g GG="2>&1 |rg"
+alias -g IGG="2>&1 -i"
+alias -g LL="2>&1 |less"
+
+autoload -Uz compinit && compinit
+
+[[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
