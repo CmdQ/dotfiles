@@ -73,5 +73,8 @@ alias -g LL="2>&1 |less"
 
 autoload -Uz compinit && compinit
 
+# chezmoi init --apply https://github.com/CmdQ/dotfiles.git
+command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
+
 [[ -r "$HOME/git.alias" ]] && source "$HOME/git.alias"
 [[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
