@@ -1,5 +1,5 @@
 iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
-[[ `uname` == Darwin ]] && [[ -e $iterm_helpers ]] && source "$iterm_helpers"
+[[ -r $iterm_helpers ]] && source "$iterm_helpers"
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -13,6 +13,7 @@ bindkey '^q' push-line-or-edit
 bindkey '\e[H' beginning-of-line
 bindkey '\e[F' end-of-line
 
+HISTFILE=~/.zsh_history
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
