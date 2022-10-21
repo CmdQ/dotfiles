@@ -73,6 +73,32 @@ alias -g GG="2>&1 |rg"
 alias -g IGG="2>&1 -i"
 alias -g LL="2>&1 |less"
 
+[[ -r "$HOME/.zplug/init.zsh" ]] && source "$HOME/.zplug/init.zsh"
+if command -v zplug >/dev/null; then
+	zplug "plugins/aws", from:oh-my-zsh
+	zplug "plugins/fd", from:oh-my-zsh
+	zplug "plugins/mosh", from:oh-my-zsh
+	zplug "plugins/sudo", from:oh-my-zsh
+	zplug "plugins/poetry", from:oh-my-zsh
+	zplug "plugins/ripgrep", from:oh-my-zsh
+	zplug "b4b4r07/enhancd", use:init.sh
+
+	if [[ `uname` == Darwin ]]; then
+		zplug "plugins/maxos", from:oh-my-zsh
+	fi
+
+	# Install plugins if there are plugins that have not been installed
+	if ! zplug check --verbose; then
+		printf "Install? [y/N]: "
+		if read -q; then
+			echo; zplug install
+		fi
+	fi
+
+	# Then, source plugins and add commands to $PATH
+	zplug load
+fi
+
 autoload -Uz compinit && compinit
 
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
