@@ -104,6 +104,8 @@ autoload -Uz compinit && compinit
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
 
+command -v starship >/dev/null && eval "$(starship init zsh)"
+
 mkcd() {
     if (($# != 1)); then
         echo 'Provide name of directory(/chain) as the only argument.'
