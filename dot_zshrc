@@ -59,6 +59,14 @@ do
 	[[ -d "$HOME/$append/bin" ]] && [[ :$PATH: == *:"$HOME/$append/bin":* ]] || PATH="$PATH:$HOME/$append/bin"
 done
 
+# https://github.com/antonmedv/llama
+if command -v llama >/dev/null;
+then
+	function ce {
+		builtin cd "$(llama "$@")"
+	}
+fi
+
 export PATH
 
 alias -g NUL="/dev/null"
@@ -72,6 +80,7 @@ alias -g GG="2>&1 |rg"
 alias -g IGG="2>&1 -i"
 alias -g LL="2>&1 |less"
 
+# https://github.com/zplug/zplug
 [[ -r "$HOME/.zplug/init.zsh" ]] && source "$HOME/.zplug/init.zsh"
 if command -v zplug >/dev/null; then
 	zplug "plugins/aws", from:oh-my-zsh
@@ -80,6 +89,9 @@ if command -v zplug >/dev/null; then
 	zplug "plugins/sudo", from:oh-my-zsh
 	zplug "plugins/poetry", from:oh-my-zsh
 	zplug "plugins/ripgrep", from:oh-my-zsh
+
+	export ENHANCD_COMMAND=cd
+	export ENHANCD_DOT_ARG='.'
 	zplug "b4b4r07/enhancd", use:init.sh
 
 	if [[ `uname` == Darwin ]]; then
@@ -100,10 +112,9 @@ fi
 
 autoload -Uz compinit && compinit
 
+# https://www.chezmoi.io/
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
-
-command -v starship >/dev/null && eval "$(starship init zsh)"
 
 mkcd() {
     if (($# != 1)); then
@@ -112,6 +123,8 @@ mkcd() {
         mkdir -p "$1" && cd "$1" || echo "Couldn't create directory."
     fi
 }
+
+export ET_NO_TELEMETRY=set
 
 [[ -r "$HOME/aliases.sh" ]] && source "$HOME/aliases.sh"
 [[ -r "$HOME/git.alias" ]] && source "$HOME/git.alias"
