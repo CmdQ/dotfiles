@@ -134,3 +134,6 @@ export ET_NO_TELEMETRY=set
 [[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 [[ -r "$HOME/.zsh_local" ]] && source "$HOME/.zsh_local"
 [[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
+
+unset RPROMPT
+
