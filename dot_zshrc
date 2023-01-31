@@ -136,4 +136,5 @@ export ET_NO_TELEMETRY=set
 [[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
 
 unset RPROMPT
+set -o emacs
 
