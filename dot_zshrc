@@ -46,6 +46,7 @@ do
 
 	# Homebrew is prepended if not already there.
 	[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
+	[[ -d "$HOME/Library/Application Support/Coursier/bin" ]] && PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 done
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
@@ -69,16 +70,18 @@ fi
 
 export PATH
 
+less=less
+command -v most >/dev/null && less=most
 alias -g NUL="/dev/null"
 alias -g DN=">/dev/null"
 alias -g EN="2>/dev/null"
 alias -g AN="&>/dev/null"
 alias -g G="|rg"
 alias -g IG="G -i"
-alias -g L="|less"
+alias -g L="|$less"
 alias -g GG="2>&1 |rg"
 alias -g IGG="2>&1 -i"
-alias -g LL="2>&1 |less"
+alias -g LL="2>&1 |$less"
 
 # https://github.com/zplug/zplug
 [[ -r "$HOME/.zplug/init.zsh" ]] && source "$HOME/.zplug/init.zsh"

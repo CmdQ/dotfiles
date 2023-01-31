@@ -1,5 +1,6 @@
 [user]
 	name = Tobias Becker
+	email = tobbecke@amazon.com
 [alias]
 	st = status
 	ci = commit
@@ -52,5 +53,10 @@
 
 [mergetool]
 	prompt = false
+	keepBackup = false
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
+[pull]
+	rebase = true
+[amazon]
+	append-cr-url = true
