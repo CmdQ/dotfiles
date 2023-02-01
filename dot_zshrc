@@ -20,6 +20,15 @@ setopt HIST_SAVE_NO_DUPS
 setopt PUSHD_TO_HOME
 
 # https://docs.brew.sh/Installation
+homebrew_paths=(/opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin)
+for homebrew_path in $homebrew_paths
+do
+	if [[ -x "$homebrew_path/bin/brew" ]]
+	then
+		[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
+		break
+	fi
+done
 if command -v brew >/dev/null
 then
 	homebrew_path=$(brew --prefix)
@@ -41,7 +50,6 @@ then
 	fi
 
 	# Homebrew is prepended if not already there.
-	[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
 	[[ -d "$HOME/Library/Application Support/Coursier/bin" ]] && PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 fi
 
