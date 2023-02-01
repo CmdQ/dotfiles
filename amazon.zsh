@@ -23,3 +23,7 @@ alias brb='brc brazil-build'
 alias bra='brc --allPackages'
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
+
+export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
+export AUTO_TITLE_SCREENS="NO"
+export AWS_EC2_METADATA_DISABLED=true

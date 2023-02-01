@@ -8,8 +8,6 @@ zle -N down-line-or-beginning-search
 
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
-bindkey '\e[H' beginning-of-line
-bindkey '\e[F' end-of-line
 bindkey '^q' push-line-or-edit
 
 HISTFILE=~/.zsh_history
@@ -22,11 +20,9 @@ setopt HIST_SAVE_NO_DUPS
 setopt PUSHD_TO_HOME
 
 # https://docs.brew.sh/Installation
-homebrew_paths=(/opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin)
-for homebrew_path in $homebrew_paths
-do
-	# This needs to be there.
-	[[ -x "$homebrew_path/bin/brew" ]] || continue
+if command -v brew >/dev/null
+then
+	homebrew_path=$(brew --prefix)
 
 	# Also load the completion goodies.
 	amazon_site_functions="$homebrew_path/share/zsh/site-functions"
@@ -47,7 +43,7 @@ do
 	# Homebrew is prepended if not already there.
 	[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
 	[[ -d "$HOME/Library/Application Support/Coursier/bin" ]] && PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
-done
+fi
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
 command -v pyenv >/dev/null && eval "$(pyenv init -)"
@@ -55,7 +51,7 @@ command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
 # These have lower priority and are appended.
 appends=(.local .cargo)
-for append in $appends;
+for append in $appends
 do
 	[[ -d "$HOME/$append/bin" ]] && [[ :$PATH: == *:"$HOME/$append/bin":* ]] || PATH="$PATH:$HOME/$append/bin"
 done
@@ -131,10 +127,13 @@ export ET_NO_TELEMETRY=set
 
 [[ -r "$HOME/aliases.sh" ]] && source "$HOME/aliases.sh"
 [[ -r "$HOME/git.alias" ]] && source "$HOME/git.alias"
-[[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
+command -v fzf >/dev/null && [[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 [[ -r "$HOME/.zsh_local" ]] && source "$HOME/.zsh_local"
 [[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
 
+export PROMPT="
+%{$fg[white]%}(%D %*) <%?> [%~] $program %{$fg[default]%}
+%{$fg[cyan]%}%m %#%{$fg[default]%} "
 unset RPROMPT
 set -o emacs
 
