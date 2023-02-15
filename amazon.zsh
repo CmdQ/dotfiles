@@ -1,11 +1,14 @@
+# No duplicates!
+typeset -U path
+
 appends=(
     ".toolbox/bin"
-    "Library/Application Support/Coursier"
+    "Library/Application Support/Coursier/bin"
     "Library/Application Support/JetBrains/Toolbox/scripts"
 )
 for append in $appends;
 do
-	[[ -d $HOME/$append ]] && [[ :$PATH: == *:"$HOME/$append":* ]] || PATH="$PATH:$HOME/$append"
+	[[ -d $HOME/$append ]] && path+="$HOME/$append"
 done
 
 alias bws='brazil ws'

@@ -19,13 +19,16 @@ setopt HIST_NO_FUNCTIONS
 setopt HIST_SAVE_NO_DUPS
 setopt PUSHD_TO_HOME
 
+# No duplicates!
+typeset -U path
+
 # https://docs.brew.sh/Installation
 homebrew_paths=(/opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin)
 for homebrew_path in $homebrew_paths
 do
 	if [[ -x "$homebrew_path/bin/brew" ]]
 	then
-		[[ :$PATH: == *:"$homebrew_path/bin":* ]] || PATH="$homebrew_path/bin:$PATH"
+		path=("$homebrew_path/bin" $path)
 		break
 	fi
 done
@@ -48,9 +51,6 @@ then
 	then
 		fpath=($fpath /opt/homebrew/share/zsh/site-functions)
 	fi
-
-	# Homebrew is prepended if not already there.
-	[[ -d "$HOME/Library/Application Support/Coursier/bin" ]] && PATH="$PATH:$HOME/Library/Application Support/Coursier/bin"
 fi
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
@@ -61,7 +61,7 @@ command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 appends=(.local .cargo)
 for append in $appends
 do
-	[[ -d "$HOME/$append/bin" ]] && [[ :$PATH: == *:"$HOME/$append/bin":* ]] || PATH="$PATH:$HOME/$append/bin"
+	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
 done
 
 # https://github.com/antonmedv/llama
@@ -71,8 +71,6 @@ then
 		builtin cd "$(llama "$@")"
 	}
 fi
-
-export PATH
 
 less=less
 command -v most >/dev/null && less=most
