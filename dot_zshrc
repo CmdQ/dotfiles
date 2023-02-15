@@ -37,12 +37,12 @@ then
 	homebrew_path=$(brew --prefix)
 
 	# Also load the completion goodies.
-	amazon_site_functions="$homebrew_path/share/zsh/site-functions"
-	if [[ -d $amazon_site_functions ]]
+	site_functions="$homebrew_path/share/zsh/site-functions"
+	if [[ -d $site_functions ]]
 	then
-		fpath=($amazon_site_functions $fpath)
-		autoload -U $amazon_site_functions/*(:t)
-		_amazon_completions
+		fpath=($site_functions $fpath)
+		autoload -U $site_functions/*(:t)
+		type _amazon_completions >/dev/null && _amazon_completions
 	fi
 
 	# More completions.
