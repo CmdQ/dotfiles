@@ -10,6 +10,7 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 bindkey '^q' push-line-or-edit
 
+SAVEHIST=9999
 HISTFILE=~/.zsh_history
 setopt AUTO_CD
 setopt HIST_EXPIRE_DUPS_FIRST
