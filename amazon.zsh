@@ -26,6 +26,8 @@ alias brb='brc brazil-build'
 alias bra='brc --allPackages'
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
+alias -g D='-Ddebug.enable=y'
+alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS='NO'
