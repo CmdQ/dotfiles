@@ -14,7 +14,7 @@ done
 alias bws='brazil ws'
 alias bwscreate='bws create -n'
 
-bb() {brazil-build}
+alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
 if command -v brazil-recursive-cmd-parallel &>/dev/null; then
