@@ -88,24 +88,24 @@ alias -g LL="2>&1 |$less"
 # https://github.com/zplug/zplug
 [[ -r "$HOME/.zplug/init.zsh" ]] && source "$HOME/.zplug/init.zsh"
 if command -v zplug >/dev/null; then
-	zplug "plugins/aws", from:oh-my-zsh
-	zplug "plugins/fd", from:oh-my-zsh
-	zplug "plugins/mosh", from:oh-my-zsh
-	zplug "plugins/sudo", from:oh-my-zsh
-	zplug "plugins/poetry", from:oh-my-zsh
-	zplug "plugins/ripgrep", from:oh-my-zsh
+	zplug 'plugins/aws', from:oh-my-zsh
+	zplug 'plugins/fd', from:oh-my-zsh
+	zplug 'plugins/mosh', from:oh-my-zsh
+	zplug 'plugins/sudo', from:oh-my-zsh
+	zplug 'plugins/poetry', from:oh-my-zsh
+	zplug 'plugins/ripgrep', from:oh-my-zsh
 
 	export ENHANCD_COMMAND=cd
 	export ENHANCD_DOT_ARG='.'
-	zplug "b4b4r07/enhancd", use:init.sh
+	zplug 'b4b4r07/enhancd', use:init.sh
 
 	if [[ `uname` == Darwin ]]; then
-		zplug "plugins/maxos", from:oh-my-zsh
+		zplug 'plugins/maxos', from:oh-my-zsh
 	fi
 
 	# Install plugins if there are plugins that have not been installed
 	if ! zplug check --verbose; then
-		printf "Install? [y/N]: "
+		printf 'Install? [y/N]: '
 		if read -q; then
 			echo; zplug install
 		fi
@@ -125,7 +125,7 @@ mkcd() {
     if (($# != 1)); then
         echo 'Provide name of directory(/chain) as the only argument.'
     else
-        mkdir -p "$1" && cd "$1" || echo "Couldn't create directory."
+        mkdir -p "$1" && cd "$1" || echo 'Couldn'\''t create directory.'
     fi
 }
 

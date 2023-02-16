@@ -2,9 +2,9 @@
 typeset -U path
 
 appends=(
-    ".toolbox/bin"
-    "Library/Application Support/Coursier/bin"
-    "Library/Application Support/JetBrains/Toolbox/scripts"
+    '.toolbox/bin'
+    'Library/Application Support/Coursier/bin'
+    'Library/Application Support/JetBrains/Toolbox/scripts'
 )
 for append in $appends;
 do
@@ -28,5 +28,5 @@ alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
-export AUTO_TITLE_SCREENS="NO"
+export AUTO_TITLE_SCREENS='NO'
 export AWS_EC2_METADATA_DISABLED=true
