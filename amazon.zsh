@@ -37,6 +37,13 @@ else
     alias tunnel='ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 clouddesk'
 fi
 
+if [[ `hostname` = *.ant.amazon.com ]]
+then
+    alias kinmw='mwinit -s --aea'
+else
+    alias kinmw='kinit -f && mwinit -o'
+fi
+
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS=NO
 export AWS_EC2_METADATA_DISABLED=true
