@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+from subprocess import run
+
+
+def get_current_branch():
+    return run(
+        "git rev-parse --abbrev-ref HEAD".split(), capture_output=True, text=True
+    ).stdout.strip()
+
+
+def parse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("source", nargs="?", default="", help="the branch to push")
+    parser.add_argument(
+        "destination", nargs="?", default="", help="the branch to push to"
+    )
+    parser.add_argument("-o", "--origin", default="origin")
+    parser.add_argument("-d", "--delete", action="store_true")
+    re = parser.parse_args()
+    re.source = re.source or get_current_branch()
+    re.destination = re.destination or "/".join([os.getlogin(), re.source])
+    return re
+
+
+def main():
+    opts = parse()
+    print(opts)
+    parts = [
+        "git",
+        "push",
+        "--no-verify",
+        "--quiet",
+        opts.origin,
+        ":" + opts.destination,
+    ]
+    print("Deleting branch", opts.destination, "from", opts.origin, "...")
+    proc = run(parts, text=True, capture_output=True)
+    if proc.returncode and "remote ref does not exist" not in proc.stderr:
+        print("Couldn't delete remote branch.\n", proc.stderr)
+        return 1
+    if opts.delete:
+        print("Not uploading because of --delete.")
+        return 0
+    parts.insert(len(parts) - 2, "--set-upstream")
+    parts[-1] = opts.source + parts[-1]
+    print(
+        "Uploading local branch",
+        opts.source,
+        "to remote branch",
+        opts.destination,
+        "...",
+    )
+    run(parts, check=True)
+    print("Done.")
+
+
+if __name__ == "__main__":
+    exit(main())

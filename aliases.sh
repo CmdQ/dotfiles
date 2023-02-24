@@ -43,5 +43,4 @@ make_aliases() {
 		alias skf="sk --ansi -i -c '$skrg'"
 	fi
 }
-
 make_aliases
