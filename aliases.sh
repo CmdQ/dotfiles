@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 make_aliases() {
+	alias ...='cd ../..'
+	alias ....='cd ../../..'
+	alias .....='cd ../../../..'
+
 	local ls=ls
 	if command -v lsd &>/dev/null; then
 		ls=lsd
