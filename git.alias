@@ -1,5 +1,7 @@
+# #!/usr/bin/env bash
+
 # Check if gerrit exists instead of master
-function git_remote_name() {
+git_remote_name() {
   for remote in $(git remote);
   do
     case "$remote" in
@@ -13,7 +15,7 @@ function git_remote_name() {
 }
 
 # Check if main exists and use instead of master
-function git_main_branch() {
+git_main_branch() {
   command git rev-parse --git-dir &>/dev/null || return
   local branch
   for branch in main mainline trunk; do
@@ -84,6 +86,7 @@ alias grbc='git rebase --continue'
 alias grbd='git rebase develop'
 alias grbi='git rebase -i'
 alias grbm='git rebase $(git_main_branch)'
+alias grbom='git rebase $(git_remote_name)/$(git_main_branch)'
 alias grbo='git rebase --onto'
 
 alias grh='git reset'
