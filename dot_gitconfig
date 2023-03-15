@@ -60,3 +60,5 @@
 	rebase = true
 [amazon]
 	append-cr-url = true
+[init]
+	defaultBranch = main
