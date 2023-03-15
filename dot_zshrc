@@ -57,7 +57,11 @@ then
 fi
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
-command -v pyenv >/dev/null && eval "$(pyenv init -)"
+if command -v pyenv >/dev/null
+then
+	eval "$(pyenv init -)"
+	command -v py >/dev/null && export PY_PYTHON=$(pyenv exec python -c "import sys; print('.'.join(map(str, sys.version_info[:2])))")
+fi
 command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
 # These have lower priority and are appended.
