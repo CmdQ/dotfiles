@@ -42,5 +42,7 @@ make_aliases() {
 		local skrg='rg --color=always --line-number "{}"'
 		alias skf="sk --ansi -i -c '$skrg'"
 	fi
+
+	command -v lazygit >/dev/null && alias lg=lazygit
 }
 make_aliases
