@@ -35,6 +35,7 @@
 	tool = vscode
 [rebase]
 	autoSquash = true
+	updateRefs = true
 
 # https://github.com/dandavison/delta#configuration
 [delta]
@@ -62,3 +63,6 @@
 	append-cr-url = true
 [init]
 	defaultBranch = main
+[branch]
+	autoSetupMerge = always
+	autoSetupRebase = always
