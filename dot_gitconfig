@@ -64,5 +64,5 @@
 [init]
 	defaultBranch = main
 [branch]
-	autoSetupMerge = always
+	autoSetupMerge = simple
 	autoSetupRebase = always
