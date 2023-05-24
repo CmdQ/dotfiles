@@ -59,11 +59,12 @@ tunnel() {
 
 if [[ `hostname` = *.ant.amazon.com ]]
 then
-    alias kinmw='mwinit -s --aea'
+    alias mkinit='mwinit -s --aea'
 else
-    alias kinmw='kinit -f && mwinit -o'
+    alias mkinit='kinit -f && mwinit -o'
 fi
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS=NO
 export AWS_EC2_METADATA_DISABLED=true
+
