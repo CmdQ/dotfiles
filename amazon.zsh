@@ -12,7 +12,7 @@ do
 done
 
 alias bws='brazil ws'
-alias bwscreate='bws create -n'
+alias bwscreate='bws create --root'
 
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
@@ -57,14 +57,19 @@ tunnel() {
     scp {,$host_name:}~/.midway/cookie >/dev/null & eval "$tunnel_cmd"
 }
 
-if [[ `hostname` = *.ant.amazon.com ]]
-then
-    alias mkinit='mwinit -s --aea'
-else
-    alias mkinit='kinit -f && mwinit -o'
-fi
+kinit() {
+    [[ `hostname` = *.ant.amazon.com ]] || klist --test || command kinit --forwardable --renewable
+}
+
+mkinit() {
+    if [[ `hostname` = *.ant.amazon.com ]]
+    then
+        mwinit -s --aea "$@"
+    else
+        kinit && mwinit -o "$@"
+    fi
+}
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS=NO
 export AWS_EC2_METADATA_DISABLED=true
-
