@@ -57,7 +57,7 @@ tunnel() {
 }
 
 kinit() {
-    [[ `hostname` = *.ant.amazon.com ]] || klist --test || command kinit --forwardable --renewable
+    [[ `hostname` = *.ant.amazon.com ]] || klist -s || command kinit -f
 }
 
 mwinit() {
