@@ -50,9 +50,9 @@ tunnel() {
     ssh-add -t 1d
     if command -v et >/dev/null
     then
-        local tunnel_cmd="et -f -t 1044:1044,5005:5005 $host_name"
+        local tunnel_cmd="et -f -t 1044:1044,5005:5005 $host_name $@"
     else
-        local tunnel_cmd="ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 $host_name"
+        local tunnel_cmd="ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 $host_name $@"
     fi
     scp {,$host_name:}~/.midway/cookie >/dev/null & eval "$tunnel_cmd"
 }
@@ -61,13 +61,20 @@ kinit() {
     [[ `hostname` = *.ant.amazon.com ]] || klist --test || command kinit --forwardable --renewable
 }
 
-mkinit() {
-    if [[ `hostname` = *.ant.amazon.com ]]
+mwinit() {
+    if [[ -z `command mwinit -l` ]]
     then
-        mwinit -s --aea "$@"
-    else
-        kinit && mwinit -o "$@"
+        if [[ `hostname` = *.ant.amazon.com ]]
+        then
+            command mwinit -s --aea "$@"
+        else
+            command mwinit -o "$@"
+        fi
     fi
+}
+
+mkinit() {
+    kinit && mwinit
 }
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
