@@ -1,3 +1,4 @@
+
 # No duplicates!
 typeset -U path
 
@@ -17,24 +18,22 @@ alias bwscreate='bws create --root'
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
-if command -v brazil-recursive-cmd-parallel &>/dev/null
-then
+if command -v brazil-recursive-cmd-parallel &>/dev/null; then
     alias brc='brazil-recursive-cmd-parallel'
 else
     alias brc='brazil-recursive-cmd'
 fi
 alias brb='brc brazil-build'
 bra() {
-    local cmd=$1
-    shift
-    local frame=$(printf '#%.0s' $(seq 1 30))
+    local frame
+    frame=$(printf '#%.0s' $(seq 1 30))
     for dir in $(bws show --format json | jq -r '.packages[].source_location')
     do
         (
             echo
-            echo $frame $(basename $dir) $frame
+            echo "$frame" "$(basename "$dir")" "$frame"
             cd "$dir" || return
-            eval "$cmd" "$@"
+            eval "$@"
         )
     done
     echo
@@ -48,32 +47,35 @@ tunnel() {
     local host_name=clouddesk
     [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent)"
     ssh-add -t 1d &>/dev/null & scp {,$host_name:}~/.midway/cookie >/dev/null
-    if command -v et >/dev/null
-    then
+    if command -v et >/dev/null; then
         et -f -t 1044:1044,5005:5005 "$@" "$host_name"
     else
         ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host_name"
     fi
 }
 
+is_amazon_laptop() {
+    [[ $(hostname) = *.ant.amazon.com ]]
+}
+
 kinit() {
-    [[ `hostname` = *.ant.amazon.com ]] || klist -s || command kinit -f
+    is_amazon_laptop || klist -s || command kinit -f
 }
 
 mwinit() {
-    if [[ -z `command mwinit -l` ]]
-    then
-        if [[ `hostname` = *.ant.amazon.com ]]
-        then
+    if ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
+        if is_amazon_laptop; then
             command mwinit -s --aea "$@"
         else
             command mwinit -o "$@"
         fi
+    elif (( $# > 0 )); then
+        command mwinit "$@"
     fi
 }
 
 mkinit() {
-    kinit && mwinit
+    kinit && mwinit "$@"
 }
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
