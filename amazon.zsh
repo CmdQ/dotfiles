@@ -7,7 +7,7 @@ path_appends=(
     'Library/Application Support/Coursier/bin'
     'Library/Application Support/JetBrains/Toolbox/scripts'
 )
-for append in $path_appends;
+for append in "${path_appends[@]}";
 do
 	[[ -d $HOME/$append ]] && path+="$HOME/$append"
 done
@@ -43,10 +43,23 @@ alias bbra='brb apollo-pkg'
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
+is_amazon_laptop() {
+    [[ $(hostname) = *.ant.amazon.com ]]
+}
+
+is_clouddesk() {
+    [[ $(hostname) = dev-dsk-$USER-* ]]
+}
+
 tunnel() {
+    if is_clouddesk; then
+        echo "You're already in your cloud desktop."
+        return
+    fi
+
     local host_name=clouddesk
-    [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent)"
-    ssh-add -t 1d &>/dev/null & scp {,$host_name:}~/.midway/cookie >/dev/null
+    pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent)"
+    ssh-add -qt 1d & scp {,$host_name:}~/.midway/cookie >/dev/null
     if command -v et >/dev/null; then
         et -f -t 1044:1044,5005:5005 "$@" "$host_name"
     else
@@ -54,14 +67,17 @@ tunnel() {
     fi
 }
 
-is_amazon_laptop() {
-    [[ $(hostname) = *.ant.amazon.com ]]
-}
-
+# This function hides the original command.
 kinit() {
-    is_amazon_laptop || klist -s || command kinit -f
+    if ! klist -s; then
+        command kinit -f
+    elif (( $# > 0 )); then
+        # This is so that we can still call it with different arguments.
+        command kinit "$@"
+    fi
 }
 
+# This function hides the original command.
 mwinit() {
     if ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
         if is_amazon_laptop; then
@@ -70,12 +86,14 @@ mwinit() {
             command mwinit -o "$@"
         fi
     elif (( $# > 0 )); then
+        # This is so that we can still call it with different arguments.
         command mwinit "$@"
     fi
 }
 
 mkinit() {
-    kinit && mwinit "$@"
+    kinit
+    mwinit
 }
 
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
