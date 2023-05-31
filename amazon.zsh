@@ -43,6 +43,8 @@ alias bbra='brb apollo-pkg'
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
+default_host_name=clouddesk
+
 is_amazon_laptop() {
     [[ $(hostname) = *.ant.amazon.com ]]
 }
@@ -51,19 +53,27 @@ is_clouddesk() {
     [[ $(hostname) = dev-dsk-$USER-* ]]
 }
 
+transfer_mw_cookie() {
+    scp {,"${1:-$default_host_name}":}~/.midway/cookie >/dev/null
+}
+
 tunnel() {
     if is_clouddesk; then
-        echo "You're already in your cloud desktop."
+        echo "It seems you are already on your cloud desktop."
         return
     fi
 
-    local host_name=clouddesk
-    pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent)"
-    ssh-add -qt 1d & scp {,$host_name:}~/.midway/cookie >/dev/null
+    local host
+    host="${1:-$default_host_name}"
+
+    if is_amazon_laptop; then
+        pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
+    fi
+    ssh-add -qt 1d & transfer_mw_cookie "$host"
     if command -v et >/dev/null; then
-        et -f -t 1044:1044,5005:5005 "$@" "$host_name"
+        et -f -t 1044:1044,5005:5005 "$@" "$host"
     else
-        ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host_name"
+        ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host"
     fi
 }
 
