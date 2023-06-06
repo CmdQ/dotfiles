@@ -109,3 +109,5 @@ mkinit() {
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS=NO
 export AWS_EC2_METADATA_DISABLED=true
+export AWS_REGION=us-west-2
+
