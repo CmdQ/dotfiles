@@ -53,10 +53,6 @@ is_clouddesk() {
     [[ $(hostname) = dev-dsk-$USER-* ]]
 }
 
-transfer_mw_cookie() {
-    scp {,"${1:-$default_host_name}":}~/.midway/cookie >/dev/null
-}
-
 tunnel() {
     if is_clouddesk; then
         echo "It seems you are already on your cloud desktop."
@@ -69,7 +65,7 @@ tunnel() {
     if is_amazon_laptop; then
         pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
     fi
-    ssh-add -qt 1d & transfer_mw_cookie "$host"
+    ssh-add -qt 1d
     if command -v et >/dev/null; then
         et -f -t 1044:1044,5005:5005 "$@" "$host"
     else
