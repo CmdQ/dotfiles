@@ -67,9 +67,9 @@ tunnel() {
     fi
     ssh-add -qt 1d
     if command -v et >/dev/null; then
-        et -f -t 1044:1044,5005:5005 "$@" "$host"
+        et -f -t 1044:1044,5005:5005 "$@" "$host" -c tmux
     else
-        ssh -A -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host"
+        ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host" tmux
     fi
 }
 
