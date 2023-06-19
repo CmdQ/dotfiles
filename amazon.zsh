@@ -40,6 +40,7 @@ bra() {
 }
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
+alias cr='cr --destination-branch mainline'
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
@@ -75,25 +76,25 @@ tunnel() {
 
 # This function hides the original command.
 kinit() {
-    if ! klist -s; then
-        command kinit -f
-    elif (( $# > 0 )); then
-        # This is so that we can still call it with different arguments.
+    # Only override the no argument call.
+    if (( $# > 0 )); then
         command kinit "$@"
+    elif ! klist -s; then
+        command kinit -f
     fi
 }
 
 # This function hides the original command.
 mwinit() {
-    if ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
+    # Only override the no argument call.
+    if (( $# > 0 )); then
+        command mwinit "$@"
+    elif ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
         if is_amazon_laptop; then
             command mwinit -s --aea "$@"
         else
             command mwinit -o "$@"
         fi
-    elif (( $# > 0 )); then
-        # This is so that we can still call it with different arguments.
-        command mwinit "$@"
     fi
 }
 
