@@ -40,7 +40,6 @@ bra() {
 }
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
-alias cr='cr --destination-branch mainline'
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
