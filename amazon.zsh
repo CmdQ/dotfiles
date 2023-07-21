@@ -1,6 +1,7 @@
 
-# No duplicates!
-typeset -U path
+# Keep only the first occurrence of each duplicated value.
+# path is the array version of PATH.
+typeset -U PATH path
 
 path_appends=(
     '.toolbox/bin'
@@ -18,12 +19,17 @@ alias bwscreate='bws create --root'
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
+# https://w.amazon.com/bin/view/EnvImprovementNinjas/BrazilRecursiveCmdParallel/
 if command -v brazil-recursive-cmd-parallel &>/dev/null; then
     alias brc='brazil-recursive-cmd-parallel'
 else
     alias brc='brazil-recursive-cmd'
 fi
 alias brb='brc brazil-build'
+# Do a command in all packages.
+# - Works with aliases, i.e. you can keep typing bb.
+# - Prints the name of the package before giving output (no guessing).
+# - Doesn't change your PWD.
 bra() {
     local frame
     frame=$(printf '#%.0s' $(seq 1 30))
@@ -40,6 +46,9 @@ bra() {
 }
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
+# Append D or DS to
+# /apollo/bin/env -e WalletHEXService brazil-build server
+# to have it enable debug mode.
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
@@ -53,10 +62,16 @@ is_clouddesk() {
     [[ $(hostname) = dev-dsk-$USER-* ]]
 }
 
+# This saves you from running
+# mwinit -o
+# on your clouddesk after connecting.
+# - It doesn't always work though.
+# - Of course you need a valid cookie on your local to begin with.
 transfer_mw_cookie() {
-    scp {,"${1:-$default_host_name}":}~/.midway/cookie >/dev/null
+    is_amazon_laptop && scp {,"${1:-$default_host_name}":}~/.midway/cookie >/dev/null
 }
 
+# Transfer Midway cookie, connect to clouddesk and start tmux right away.
 tunnel() {
     if is_clouddesk; then
         echo "It seems you are already on your cloud desktop."
@@ -71,13 +86,15 @@ tunnel() {
     fi
     ssh-add -qt 1d & transfer_mw_cookie "$host"
     if command -v et >/dev/null; then
+        # https://github.com/MisterTea/EternalTerminal
         et -f -t 1044:1044,5005:5005 "$@" "$host" -c tmux
     else
         ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host" tmux
     fi
 }
 
-# This function hides the original command.
+# Run kinit if it is needed only.
+# - This function hides the original command.
 kinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
@@ -87,20 +104,23 @@ kinit() {
     fi
 }
 
-# This function hides the original command.
+# Run mwinit if it is needed only.
+# - This function hides the original command.
+# - Adds -o or -s depending on where it is run.
 mwinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
         command mwinit "$@"
     elif ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
         if is_amazon_laptop; then
-            command mwinit -s --aea "$@"
+            command mwinit    -s --aea "$@"
         else
-            command mwinit -o "$@"
+            command mwinit -o -s --aea "$@"
         fi
     fi
 }
 
+# Single command for both authorizations.
 mkinit() {
     kinit
     mwinit
@@ -110,4 +130,3 @@ export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 export AUTO_TITLE_SCREENS=NO
 export AWS_EC2_METADATA_DISABLED=true
 export AWS_REGION=us-west-2
-
