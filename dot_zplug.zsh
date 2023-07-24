@@ -5,7 +5,6 @@ zplug_home="$HOME/.zplug/init.zsh"
 if [[ -r $zplug_home ]] && source "$zplug_home"; then
 	zplug 'plugins/aws', from:oh-my-zsh
 	zplug 'plugins/fd', from:oh-my-zsh
-	zplug 'plugins/mosh', from:oh-my-zsh
 	zplug 'plugins/sudo', from:oh-my-zsh
 	zplug 'plugins/poetry', from:oh-my-zsh
 	zplug 'plugins/ripgrep', from:oh-my-zsh
