@@ -96,6 +96,7 @@ make_aliases() {
 make_aliases
 
 # https://github.com/zplug/zplug
+# curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 [[ -r "$HOME/.zplug/init.zsh" ]] && source "$HOME/.zplug/init.zsh"
 if command -v zplug >/dev/null; then
 	zplug 'plugins/aws', from:oh-my-zsh
@@ -152,4 +153,3 @@ export PROMPT="
 %{$fg[cyan]%}%m %#%{$fg[default]%} "
 unset RPROMPT
 set -o emacs
-

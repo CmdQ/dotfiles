@@ -1,5 +1,3 @@
-set -e
-
 fzf_home="$(brew --prefix)/opt/fzf"
 [[ -d $fzf_home ]] || echo Not setting up fzf. && return
 
