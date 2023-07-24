@@ -1,3 +1,4 @@
+set -e
 
 # Keep only the first occurrence of each duplicated value.
 # path is the array version of PATH.
