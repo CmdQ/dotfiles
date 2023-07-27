@@ -2,12 +2,7 @@
 # path is the array version of PATH.
 typeset -U PATH path
 
-path_appends=(
-    '.toolbox/bin'
-    'Library/Application Support/Coursier/bin'
-    'Library/Application Support/JetBrains/Toolbox/scripts'
-)
-for append in "${path_appends[@]}";
+for append in .toolbox/bin 'Library/Application Support/Coursier/bin' 'Library/Application Support/JetBrains/Toolbox/scripts'
 do
 	[[ -d $HOME/$append ]] && path+="$HOME/$append"
 done
