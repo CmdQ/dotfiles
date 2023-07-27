@@ -15,6 +15,8 @@ done
 alias bws='brazil ws'
 alias bwscreate='bws create --root'
 
+[[ -r $HOME/.brazil_completion/zsh_completion ]] && source "$HOME/.brazil_completion/zsh_completion"
+
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
