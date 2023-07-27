@@ -99,6 +99,7 @@ source "$HOME/.zplug.zsh"
 
 autoload -Uz compinit && compinit
 
+export GITHUB_USERNAME=CmdQ
 # https://www.chezmoi.io/
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
@@ -113,11 +114,10 @@ mkcd() {
 
 export ET_NO_TELEMETRY=set
 
-[[ -r "$HOME/aliases.sh" ]] && source "$HOME/aliases.sh"
-[[ -r "$HOME/git.alias" ]] && source "$HOME/git.alias"
+for f in .zsh_local aliases.sh git.alias amazon.zsh
+do
+	[[ -r $HOME/$f ]] && source "$HOME/$f"
+done
 command -v fzf >/dev/null && [[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
-[[ -r "$HOME/.zsh_local" ]] && source "$HOME/.zsh_local"
-[[ -r "$HOME/amazon.zsh" ]] && source "$HOME/amazon.zsh"
-
 
 set -o emacs
