@@ -9,11 +9,13 @@
 	last = log -1 --name-status
 	rw = review --yes
 	which = log --oneline --no-merges
+	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
 [credential]
 	helper = cache
 [core]
 	longpaths = true
 	excludesfile = ~/.gitignore
+	pager = less -FMRiX
 [push]
 	default = simple
 [fetch]
@@ -67,3 +69,5 @@
 [branch]
 	autoSetupMerge = simple
 	autoSetupRebase = always
+[color]
+	ui = auto
