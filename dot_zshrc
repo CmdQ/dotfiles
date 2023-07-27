@@ -26,8 +26,7 @@ setopt PUSHD_TO_HOME
 typeset -U path
 
 # https://docs.brew.sh/Installation
-homebrew_paths=(/opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin)
-for homebrew_path in $homebrew_paths
+for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin
 do
 	if [[ -x "$homebrew_path/bin/brew" ]]
 	then
@@ -65,8 +64,7 @@ fi
 command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
 # These have lower priority and are appended.
-appends=(.local .cargo)
-for append in $appends
+for append in .local .cargo
 do
 	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
 done
