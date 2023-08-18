@@ -42,6 +42,7 @@ bra() {
 }
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
+alias bbserver='/apollo/bin/env -e WalletHEXService brazil-build server'
 # Append D or DS to
 # /apollo/bin/env -e WalletHEXService brazil-build server
 # to have it enable debug mode.
