@@ -54,6 +54,7 @@ then
 		fpath=($fpath /opt/homebrew/share/zsh/site-functions)
 	fi
 fi
+[[ -x "$HOME/.rakubrew/bin/rakubrew" ]] && eval "$("$HOME/.rakubrew/bin/rakubrew" init Zsh)"
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
 if command -v pyenv >/dev/null
