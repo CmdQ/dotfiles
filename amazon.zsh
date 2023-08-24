@@ -56,7 +56,7 @@ is_amazon_laptop() {
 }
 
 is_clouddesk() {
-    [[ $(hostname) = dev-dsk-$USER-* ]]
+    [[ $(hostname) = dev-dsk-$(whoami)-* ]]
 }
 
 # This saves you from running
@@ -90,6 +90,20 @@ tunnel() {
     fi
 }
 
+# Some things about authentication:
+# https://w.amazon.com/bin/view/AWSDiscovery/AWSMagellanService/Development/GettingStarted#HSetKerberosTicket
+# Especially the cron job:
+# crontab -e
+# # Renew the kerberos ticket every 8 hours, this will extend the lifetime of
+# # the ticket until the renew lifetime expires, after that this command will
+# # fail to renew the ticket and you will need to interactively
+# # run `kinit -f -l 10h -r 7d` with your password
+# #
+# # minute  hour(s)  day_of_month  month  weekday  command
+# 00 00,08,16 * * * /usr/bin/kinit -R -c /tmp/krb5cc_xxxxxxx
+
+# echo "0 0,8,16 * * 1-5 $(which kinit) -Rc $(klist -l |sed -ne"/$(whoami)/ s,$(whoami).*FILE:,,p")"
+
 # Run kinit if it is needed only.
 # - This function hides the original command.
 kinit() {
@@ -97,7 +111,7 @@ kinit() {
     if (( $# > 0 )); then
         command kinit "$@"
     elif ! klist -s; then
-        command kinit -f
+        command kinit -R 2>/dev/null || command kinit -fp -l 10h -r 7d
     fi
 }
 
@@ -109,11 +123,8 @@ mwinit() {
     if (( $# > 0 )); then
         command mwinit "$@"
     elif ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
-        if is_amazon_laptop; then
-            command mwinit    -s --aea "$@"
-        else
-            command mwinit -o -s --aea "$@"
-        fi
+        is_amazon_laptop || OFLAG=-o
+        command mwinit "$OFLAG" -s --aea "$@"
     fi
 }
 
