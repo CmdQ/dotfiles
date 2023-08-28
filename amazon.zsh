@@ -111,25 +111,32 @@ kinit() {
     if (( $# > 0 )); then
         command kinit "$@"
     elif ! klist -s; then
-        command kinit -R 2>/dev/null || command kinit -fp -l 10h -r 7d
+        kinit -R 2>/dev/null || kinit -fp -l 10h -r 7d
     fi
 }
 
 # Run mwinit if it is needed only.
 # - This function hides the original command.
-# - Adds -o or -s depending on where it is run.
+# - Adds -o depending on where it is run.
 mwinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
-        command mwinit "$@"
+        args=("$@")
+        if ! is_amazon_laptop; then
+            args+=-o
+        fi
+        command mwinit "${args[@]}"
     elif ! command mwinit -l |grep -F "$HOME/.midway/cookie" >/dev/null; then
-        is_amazon_laptop || OFLAG=-o
-        command mwinit "$OFLAG" -s --aea "$@"
+        mwinit -s --aea
     fi
 }
 
 # Single command for both authorizations.
 mkinit() {
+    if (( $# > 0 )); then
+        echo mkinit alias doesn\'t take arguments!
+        exit 1
+    fi
     kinit
     mwinit
 }
