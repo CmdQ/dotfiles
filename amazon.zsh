@@ -51,6 +51,43 @@ alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
 default_host_name=clouddesk
 
+needs_cr_link() {
+    ! git show -s --format=%b $1 | grep -qF 'cr: https://code.amazon.com/reviews/'
+}
+
+# Create a CR of one commit.
+cr1() {
+    args=("$@")
+    if (( $# == 0 )); then
+        if [[ $- == *i* ]] && command -v fzf >/dev/null; then
+            selected=$( \
+                git log --oneline --decorate -12 | \
+                fzf +s +m --reverse --prompt 'Which commit for CR? ' \
+                    --preview 'echo {} | cut -d " " -f 1 | xargs git show --color=always' | \
+                cut -d ' ' -f 1
+            )
+            [[ -z $selected ]] && echo No selection, cancelling. && return 130
+            [[ $(git log -1 --pretty=%h HEAD) == $selected ]] && needs_cr_link $selected && args+="--amend"
+            cr --range "${selected}~:${selected}" "${args[@]}"
+        else
+            cr1 0
+        fi
+    else
+        num=$1
+        shift
+        if [[ $num = 0 ]]; then
+            needs_cr_link HEAD && args+="--amend"
+            cr --parent HEAD~ "${args[@]}"
+        elif [[ $num =~ ^[0-9]+$ ]]; then
+            (( plus = $num + 1 ))
+            cr --range "HEAD~${plus}:HEAD~${num}" "${args[@]}"
+        else
+            echo 'The first argument has to be the number of past commits to choose (0 being HEAD).'
+            echo The remaining parameters are passed on to cr.
+        fi
+    fi
+}
+
 is_amazon_laptop() {
     [[ $(hostname) = *.ant.amazon.com ]]
 }
