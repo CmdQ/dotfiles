@@ -163,7 +163,7 @@ mwinit() {
             args+=-o
         fi
         command mwinit "${args[@]}"
-    elif command mwinit -t |grep -qF 'certificate expired or not found'; then
+    elif ! command mwinit -l |grep -qF '/.midway/cookie'; then
         mwinit -s --aea
     fi
 }
