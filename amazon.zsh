@@ -96,15 +96,6 @@ is_clouddesk() {
     [[ $(hostname) = dev-dsk-$(whoami)-* ]]
 }
 
-# This saves you from running
-# mwinit -o
-# on your clouddesk after connecting.
-# - It doesn't always work though.
-# - Of course you need a valid cookie on your local to begin with.
-transfer_mw_cookie() {
-    is_amazon_laptop && scp {,"${1:-$default_host_name}":}~/.midway/cookie >/dev/null
-}
-
 # Transfer Midway cookie, connect to clouddesk and start tmux right away.
 tunnel() {
     if is_clouddesk; then
@@ -118,7 +109,7 @@ tunnel() {
     if is_amazon_laptop; then
         pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
     fi
-    ssh-add -qt 1d & transfer_mw_cookie "$host"
+    ssh-add -qt 1d
     if command -v et >/dev/null; then
         # https://github.com/MisterTea/EternalTerminal
         et -f -t 1044:1044,5005:5005 "$@" "$host" -c 'tmux new -Als0'
