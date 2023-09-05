@@ -112,9 +112,9 @@ tunnel() {
     ssh-add -qt 1d
     if command -v et >/dev/null; then
         # https://github.com/MisterTea/EternalTerminal
-        et -f -t 1044:1044,5005:5005 "$@" "$host" -c 'tmux new -Als0'
+        et -f -t 1044:1044,5005:5005 "$@" "$host" -c 'tmux new -As0'
     else
-        ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host" tmux new -Als0
+        ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host" tmux new -As0
     fi
 }
 
