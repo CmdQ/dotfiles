@@ -138,7 +138,8 @@ kinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
         command kinit "$@"
-    elif ! klist -s; then
+    elif ! is_amazon_laptop && ! klist -s; then
+        # Don't run kinit on Mac anymore. Otherwise try to refresh first.
         kinit -R 2>/dev/null || kinit -fp -l 10h -r 7d
     fi
 }
