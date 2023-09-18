@@ -21,7 +21,6 @@ if command -v brazil-recursive-cmd-parallel &>/dev/null; then
 else
     alias brc='brazil-recursive-cmd'
 fi
-alias brb='brc brazil-build'
 # Do a command in all packages.
 # - Works with aliases, i.e. you can keep typing bb.
 # - Prints the name of the package before giving output (no guessing).
@@ -29,7 +28,7 @@ alias brb='brc brazil-build'
 bra() {
     local frame
     frame=$(printf '#%.0s' $(seq 1 30))
-    for dir in $(bws show --format json | jq -r '.packages[].source_location')
+    for dir in $(brazil-recursive-cmd -all pwd -P 2>/dev/null)
     do
         (
             echo
