@@ -49,8 +49,6 @@ alias bbserver='/apollo/bin/env -e WalletHEXService brazil-build server'
 alias -g D='-Ddebug.enable=y'
 alias -g DS='-Ddebug.enable=y -Ddebug.suspend=y'
 
-default_host_name=clouddesk
-
 needs_cr_link() {
     ! git show -s --format=%b $1 | grep -qF 'cr: https://code.amazon.com/reviews/'
 }
@@ -103,18 +101,16 @@ tunnel() {
         return
     fi
 
-    local host
-    host="${1:-$default_host_name}"
-
     if is_amazon_laptop; then
         pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
     fi
     ssh-add -qt 1d
     if command -v et >/dev/null; then
         # https://github.com/MisterTea/EternalTerminal
-        et -f -t 1044:1044,5005:5005 "$@" "$host" -c 'tmux new -As0'
+        et -f -t 1044:1044,5005:5005 "$@" etdesktop -c 'tmux new -As0'
+        # See https://w.amazon.com/bin/view/Users/Bozak/EternalTerminal/WSSH/ for the WSSH automation.
     else
-        ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" "$host" tmux new -As0
+        ssh -At -L 1044:localhost:1044 -L 5005:localhost:5005 "$@" clouddesk tmux new -As0
     fi
 }
 
