@@ -1,27 +1,6 @@
 iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 [[ -r $iterm_helpers ]] && source "$iterm_helpers"
 
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-bindkey '^[[A' up-line-or-beginning-search
-bindkey '^[[B' down-line-or-beginning-search
-bindkey '^q' push-line-or-edit
-
-SAVEHIST=9999
-HISTFILE=~/.zsh_history
-setopt AUTO_CD
-setopt EXTENDED_GLOB
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_FUNCTIONS
-setopt HIST_SAVE_NO_DUPS
-setopt INTERACTIVE_COMMENTS
-setopt PUSHD_TO_HOME
-
 # No duplicates!
 typeset -U path
 
@@ -120,3 +99,24 @@ done
 command -v fzf >/dev/null && [[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
 set -o emacs
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^Q' push-line-or-edit
+
+SAVEHIST=9999
+HISTFILE=~/.zsh_history
+setopt AUTO_CD
+setopt EXTENDED_GLOB
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_FUNCTIONS
+setopt HIST_SAVE_NO_DUPS
+setopt INTERACTIVE_COMMENTS
+setopt PUSHD_TO_HOME
