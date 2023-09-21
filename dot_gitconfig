@@ -66,7 +66,6 @@
 [init]
 	defaultBranch = main
 [branch]
-	autoSetupMerge = simple
 	autoSetupRebase = always
 [color]
 	ui = auto
