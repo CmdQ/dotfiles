@@ -159,7 +159,7 @@ mwinit() {
 mkinit() {
     if (( $# > 0 )); then
         echo mkinit alias doesn\'t take arguments!
-        exit 1
+        return 1
     fi
     kinit
     mwinit
