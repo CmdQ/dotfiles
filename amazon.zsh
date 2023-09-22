@@ -54,6 +54,14 @@ needs_cr_link() {
 
 # Create a CR of one commit.
 cr1() {
+    local upsteam=origin/mainline
+    if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) == $upsteam ]]; then
+        echo "Your branch $(git rev-parse --abbrev-ref HEAD) is not tracking $upsteam!"
+        echo "Ready to set it up. Press enter to do it or Ctrl+C to cancel."
+        read -s
+        git branch --set-upstream-to=origin/mainline
+    fi
+
     args=("$@")
     if (( $# == 0 )); then
         if [[ $- == *i* ]] && command -v fzf >/dev/null; then
