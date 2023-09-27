@@ -57,9 +57,15 @@ cr1() {
     local upsteam=origin/mainline
     if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) == $upsteam ]]; then
         echo "Your branch $(git rev-parse --abbrev-ref HEAD) is not tracking $upsteam!"
-        echo "Ready to set it up. Press enter to do it or Ctrl+C to cancel."
-        read -s
-        git branch --set-upstream-to=origin/mainline
+        while; do
+            read "answer?Shall I change it to origin/mainline? Y/n "
+            if [[ -z $answer || $answer =~ ^[Yy](es)?$ ]]; then
+                git branch --set-upstream-to="$upsteam"
+                break
+            elif [[ $answer =~ ^[Nn]o?$ ]]; then
+                break
+            fi
+        done
     fi
 
     args=("$@")
