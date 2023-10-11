@@ -52,6 +52,10 @@
 	prompt = false
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
+[difftool "diffsitter"]
+	cmd = diffsitter "$LOCAL" "$REMOTE"
+[difftool "difft"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [mergetool]
 	prompt = false
