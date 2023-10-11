@@ -7,7 +7,9 @@ if [[ -r $zplug_home ]] && source "$zplug_home"; then
 	zplug 'plugins/fd', from:oh-my-zsh
 	zplug 'plugins/sudo', from:oh-my-zsh
 	zplug 'plugins/poetry', from:oh-my-zsh
-	zplug 'plugins/ripgrep', from:oh-my-zsh
+
+	zplug 'zsh-users/zsh-autosuggestions'
+	zplug 'zsh-users/zsh-syntax-highlighting'
 
 	export ENHANCD_COMMAND=cd
 	export ENHANCD_DOT_ARG='.'
@@ -16,6 +18,8 @@ if [[ -r $zplug_home ]] && source "$zplug_home"; then
 	if [[ `uname` == Darwin ]]; then
 		zplug 'plugins/maxos', from:oh-my-zsh
 	fi
+
+	zplug 'plugins/ripgrep', from:oh-my-zsh
 
 	# Install plugins if there are plugins that have not been installed
 	if ! zplug check --verbose; then
