@@ -31,17 +31,16 @@ bra() {
     for dir in $(brazil-recursive-cmd -all pwd -P 2>/dev/null)
     do
         (
-            echo
-            echo "$frame" "$(basename "$dir")" "$frame"
-            cd "$dir" || return
-            eval "$@"
-        )
+            printf '\n%s %s %s\n' "$frame" "$(basename "$dir")" "$frame"
+            cd "$dir" && eval "$@" || return 1
+        ) || return 1
     done
     echo
 }
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
 alias bbserver='/apollo/bin/env -e WalletHEXService brazil-build server'
+alias sync='ssh-add && ninja-dev-sync'
 # Append D or DS to
 # /apollo/bin/env -e WalletHEXService brazil-build server
 # to have it enable debug mode.
