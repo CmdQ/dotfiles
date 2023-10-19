@@ -168,7 +168,7 @@ mwinit() {
         fi
         command mwinit "${args[@]}"
     elif ! command mwinit -t 2>/dev/null |grep -qF 'certificate not expired'; then
-        mwinit -s --aea
+        mwinit -s
     fi
 }
 
