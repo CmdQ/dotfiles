@@ -188,12 +188,13 @@ function unittests {
         local name="brazil-$dir-tests"
         [[ -r build/$name/index.html ]] && dirs+=("$name")
     done
+    local which
     case "${#dirs[@]}" in
         0)
             echo 'Neither unit nor integrations tests found. Are you in the root of the correct package?'
             ;;
         1)
-            python3 -m http.server -d build/"${dirs[1]}"
+            which=build/"${dirs[1]}"
             ;;
         *)
             cat >build/index.html <<EOF
@@ -210,9 +211,14 @@ EOF
                 echo "<li><a href='$dir/'>${dir#brazil-}</a></li>" >>build/index.html
             done
             echo '</ul></body></html>' >>build/index.html
-            python3 -m http.server -d build
+            which=build
             ;;
     esac
+    if is_clouddesk; then
+        python3 -m http.server -d "$which"
+    else
+        open "$which/index.html"
+    fi
 }
 
 # Brazil needs an x86_64 perl, which macOS does not provide, so
