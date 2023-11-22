@@ -111,13 +111,14 @@ bindkey '^Q' push-line-or-edit
 
 SAVEHIST=9999
 HISTFILE=~/.zsh_history
-setopt AUTO_CD
-setopt EXTENDED_GLOB
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_FUNCTIONS
-setopt HIST_SAVE_NO_DUPS
-setopt INTERACTIVE_COMMENTS
-setopt PUSHD_TO_HOME
-setopt IGNORE_EOF
+setopt auto_cd
+setopt extended_glob
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_space
+setopt hist_no_functions
+setopt hist_save_no_dups
+setopt interactive_comments
+setopt pushd_to_home
+setopt ignore_eof
+setopt nocasematch
