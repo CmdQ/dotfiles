@@ -73,6 +73,10 @@ make_aliases() {
 }
 make_aliases
 
+gr() {
+	cd "$(git rev-parse --show-toplevel)"
+}
+
 source "$HOME/.zplug.zsh"
 
 autoload -Uz compinit && compinit
