@@ -126,3 +126,5 @@ setopt interactive_comments
 setopt pushd_to_home
 setopt ignore_eof
 setopt nocasematch
+
+[ -r "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
