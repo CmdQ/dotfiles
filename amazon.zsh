@@ -160,6 +160,7 @@ kinit() {
 # - This function hides the original command.
 # - Adds -o depending on where it is run.
 mwinit() {
+    [[ -x refresh_aea.zsh ]] && refresh_aea.zsh
     # Only override the no argument call.
     if (( $# > 0 )); then
         args=("$@")
