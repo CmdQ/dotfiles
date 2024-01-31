@@ -40,7 +40,7 @@ bra() {
 alias bbb='bra brazil-build'
 alias bbra='brb apollo-pkg'
 alias bbserver='/apollo/bin/env -e WalletHEXService brazil-build server'
-alias sync='ssh-add && ninja-dev-sync'
+alias sync='ninja-dev-sync'
 # Append D or DS to
 # /apollo/bin/env -e WalletHEXService brazil-build server
 # to have it enable debug mode.
@@ -160,7 +160,6 @@ kinit() {
 # - This function hides the original command.
 # - Adds -o depending on where it is run.
 mwinit() {
-    [[ -x refresh_aea.zsh ]] && refresh_aea.zsh
     # Only override the no argument call.
     if (( $# > 0 )); then
         args=("$@")
@@ -168,8 +167,15 @@ mwinit() {
             args+=-o
         fi
         command mwinit "${args[@]}"
-    elif ! command mwinit -t 2>/dev/null |grep -qF 'certificate not expired'; then
-        mwinit -s
+    else
+        [[ -x refresh_aea.zsh ]] && refresh_aea.zsh
+        if ! command mwinit -t 2>/dev/null |grep -qF 'certificate not expired'; then
+            mwinit -s
+        fi
+    fi
+    if [[ ! ${@[@]} =~ -d ]]; then
+        ps -p "${SSH_AGENT_PID:-1}" | grep -q ssh-agent || [[ -n $SSH_AUTH_SOCK ]] || eval $(ssh-agent)
+        ssh-add 2>/dev/null
     fi
 }
 
@@ -181,6 +187,11 @@ mkinit() {
     fi
     kinit
     mwinit
+}
+
+unauth() {
+    command mwinit --delete
+    kdestroy -A
 }
 
 function unittests {
