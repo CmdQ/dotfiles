@@ -1,15 +1,15 @@
 zplug_home="$HOME/.zplug/init.zsh"
 
+prompt_before="$PROMPT"
+
 # https://github.com/zplug/zplug
 # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 if [[ -r $zplug_home ]] && source "$zplug_home"; then
 	zplug 'plugins/aws', from:oh-my-zsh
 	zplug 'plugins/fd', from:oh-my-zsh
 	zplug 'plugins/sudo', from:oh-my-zsh
-	zplug 'plugins/poetry', from:oh-my-zsh
 
 	zplug 'zsh-users/zsh-autosuggestions'
-	zplug 'zsh-users/zsh-syntax-highlighting'
 
 	export ENHANCD_COMMAND=cd
 	export ENHANCD_DOT_ARG='.'
@@ -31,10 +31,8 @@ if [[ -r $zplug_home ]] && source "$zplug_home"; then
 
 	# Then, source plugins and add commands to $PATH
 	zplug load
-fi
 
-# Undo the prompt changes by the aws plugin.
-export PROMPT="
-%{$fg[white]%}(%D %*) <%?> [%~] $program %{$fg[default]%}
-%{$fg[cyan]%}%m %#%{$fg[default]%} "
-unset RPROMPT
+	# Undo the prompt changes by the aws plugin.
+	export PROMPT="$prompt_before"
+	unset RPROMPT
+fi
