@@ -160,6 +160,11 @@ kinit() {
 # - This function hides the original command.
 # - Adds -o depending on where it is run.
 mwinit() {
+    if [[ ${@[@]} =~ -d ]]; then
+        command mwinit "$@"
+        return
+    fi
+
     # Only override the no argument call.
     if (( $# > 0 )); then
         args=("$@")
@@ -167,15 +172,17 @@ mwinit() {
             args+=-o
         fi
         command mwinit "${args[@]}"
+
+        if ! { ps -p "${SSH_AGENT_PID:-1}" | grep -q ssh-agent || [[ -S $SSH_AUTH_SOCK ]]; } then
+            eval $(ssh-agent)
+            [[ -n $SSH_AUTH_SOCK ]] || echo but isn\'t
+            ssh-add 2>/dev/null
+        fi
     else
         [[ -x refresh_aea.zsh ]] && refresh_aea.zsh
         if ! command mwinit -t 2>/dev/null |grep -qF 'certificate not expired'; then
             mwinit -s
         fi
-    fi
-    if [[ ! ${@[@]} =~ -d ]]; then
-        ps -p "${SSH_AGENT_PID:-1}" | grep -q ssh-agent || [[ -n $SSH_AUTH_SOCK ]] || eval $(ssh-agent)
-        ssh-add 2>/dev/null
     fi
 }
 
@@ -190,6 +197,7 @@ mkinit() {
 }
 
 unauth() {
+    eval $(ssh-agent -k)
     command mwinit --delete
     kdestroy -A
 }
