@@ -51,12 +51,9 @@ do
 done
 
 # https://github.com/antonmedv/walk
-if command -v walk >/dev/null
-then
-	function ce {
-		cd "$(walk "$@")"
-	}
-fi
+function ce {
+	cd "$(walk --icons "$@")"
+}
 
 make_aliases() {
 	local grep=egrep
