@@ -1,8 +1,9 @@
 iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 [[ -r $iterm_helpers ]] && source "$iterm_helpers"
 
-# No duplicates!
-typeset -U path
+# Keep only the first occurrence of each duplicated value.
+# path is the array version of PATH.
+typeset -U PATH path
 
 # https://docs.brew.sh/Installation
 for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin

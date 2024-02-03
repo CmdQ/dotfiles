@@ -10,7 +10,11 @@ done
 alias bws='brazil ws'
 alias bwscreate='bws create --root'
 
-[[ -r $HOME/.brazil_completion/zsh_completion ]] && source "$HOME/.brazil_completion/zsh_completion"
+if command -v brazil >/dev/null
+then
+    complet=$(command ls "$HOME"/.toolbox/tools/brazilcli/**/brazil_completion.zsh(om[1]))
+    [[ -r $complet ]] && source "$complet"
+fi
 
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
