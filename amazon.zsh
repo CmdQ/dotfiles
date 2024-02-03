@@ -20,7 +20,8 @@ alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
 # https://w.amazon.com/bin/view/EnvImprovementNinjas/BrazilRecursiveCmdParallel/
-if command -v brazil-recursive-cmd-parallel &>/dev/null; then
+if command -v brazil-recursive-cmd-parallel >/dev/null
+then
     alias brc='brazil-recursive-cmd-parallel'
 else
     alias brc='brazil-recursive-cmd'
@@ -58,14 +59,18 @@ needs_cr_link() {
 # Create a CR of one commit.
 cr1() {
     local upsteam=origin/mainline
-    if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) == $upsteam ]]; then
+    if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) == $upsteam ]]
+    then
         echo "Your branch $(git rev-parse --abbrev-ref HEAD) is not tracking $upsteam!"
-        while; do
+        while
+        do
             read "answer?Shall I change it to origin/mainline? Y/n "
-            if [[ -z $answer || $answer =~ ^[Yy](es)?$ ]]; then
+            if [[ -z $answer || $answer =~ ^[Yy](es)?$ ]]
+            then
                 git branch --set-upstream-to="$upsteam"
                 break
-            elif [[ $answer =~ ^[Nn]o?$ ]]; then
+            elif [[ $answer =~ ^[Nn]o?$ ]]
+            then
                 break
             fi
         done
@@ -172,12 +177,14 @@ mwinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
         args=("$@")
-        if ! is_amazon_laptop; then
+        if ! is_amazon_laptop
+        then
             args+=-o
         fi
         command mwinit "${args[@]}"
 
-        if ! { ps -p "${SSH_AGENT_PID:-1}" | grep -q ssh-agent || [[ -S $SSH_AUTH_SOCK ]]; } then
+        if ! { ps -p "${SSH_AGENT_PID:-1}" | grep -q ssh-agent || [[ -S $SSH_AUTH_SOCK ]]; }
+        then
             eval $(ssh-agent)
             [[ -n $SSH_AUTH_SOCK ]] || echo but isn\'t
             ssh-add 2>/dev/null
