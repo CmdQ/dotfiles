@@ -95,7 +95,6 @@ mkcd() {
     fi
 }
 
-export ET_NO_TELEMETRY=set
 
 for f in .zsh_local aliases.sh git.alias amazon.zsh
 do
@@ -114,18 +113,24 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 bindkey '^Q' push-line-or-edit
 
-SAVEHIST=9999
-HISTFILE=~/.zsh_history
+export ET_NO_TELEMETRY=set
+export SAVEHIST=99999
+export HISTFILE="$HOME/.zsh_history"
 setopt auto_cd
 setopt extended_glob
+setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_find_no_dups
 setopt hist_ignore_space
 setopt hist_no_functions
+setopt hist_reduce_blanks
 setopt hist_save_no_dups
-setopt interactive_comments
-setopt pushd_to_home
+setopt hist_verify
 setopt ignore_eof
+setopt inc_append_history
+setopt interactive_comments
 setopt nocasematch
+setopt pushd_to_home
+setopt share_history
 
 [ -r "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
