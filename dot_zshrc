@@ -87,7 +87,8 @@ export GITHUB_USERNAME=CmdQ
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
 
 mkcd() {
-    if (($# != 1)); then
+    if (($# != 1))
+	then
         echo 'Provide name of directory(/chain) as the only argument.'
     else
         mkdir -p "$1" && cd "$1" || echo 'Couldn'\''t create directory.'
