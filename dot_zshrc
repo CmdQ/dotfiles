@@ -49,11 +49,11 @@ do
 	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
 done
 
-# https://github.com/antonmedv/llama
-if command -v llama >/dev/null;
+# https://github.com/antonmedv/walk
+if command -v walk >/dev/null
 then
 	function ce {
-		builtin cd "$(llama "$@")"
+		cd "$(walk "$@")"
 	}
 fi
 
