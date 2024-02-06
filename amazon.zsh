@@ -13,7 +13,7 @@ alias bwscreate='bws create --root'
 if command -v brazil >/dev/null
 then
     complet=$(command ls "$HOME"/.toolbox/tools/brazilcli/**/brazil_completion.zsh(om[1]))
-    [[ -r $complet ]] && source "$complet"
+    [[ -f $complet ]] && source "$complet"
 fi
 
 alias bb=brazil-build
@@ -217,7 +217,7 @@ function unittests {
     typeset -hU dirs=()
     for dir in unit integ; do
         local name="brazil-$dir-tests"
-        [[ -r build/$name/index.html ]] && dirs+=("$name")
+        [[ -f build/$name/index.html ]] && dirs+=("$name")
     done
     local which
     case "${#dirs[@]}" in

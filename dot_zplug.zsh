@@ -4,7 +4,9 @@ zplug_home="$HOME/.zplug/init.zsh"
 
 # https://github.com/zplug/zplug
 # curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-if [[ -r $zplug_home ]] && source "$zplug_home"
+
+zplug_home="$HOME/.zplug/init.zsh"
+if [[ -f $zplug_home ]] && source "$zplug_home"
 then
 	zplug plugins/sudo, from:oh-my-zsh
 	zplug zsh-users/zsh-autosuggestions
