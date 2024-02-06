@@ -83,7 +83,6 @@ for f in .zsh_local aliases.sh git.alias amazon.zsh
 do
 	[[ -f $HOME/$f ]] && source "$HOME/$f"
 done
-command -v fzf >/dev/null && [[ -r "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
 make_aliases() {
 	local grep=egrep
