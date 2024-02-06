@@ -62,7 +62,11 @@ gr() {
 
 source "$HOME/.zplug.zsh"
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+for dump in "$HOME"/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 export GITHUB_USERNAME=CmdQ
 # https://www.chezmoi.io/
