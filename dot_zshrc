@@ -34,7 +34,6 @@ then
 		fpath=($fpath /opt/homebrew/share/zsh/site-functions)
 	fi
 fi
-[[ -x "$HOME/.rakubrew/bin/rakubrew" ]] && eval "$("$HOME/.rakubrew/bin/rakubrew" init Zsh)"
 
 # This has higher priority and is installed by Homebrew, i.e. it needs to come after.
 if command -v pyenv >/dev/null
@@ -54,6 +53,8 @@ done
 function ce {
 	cd "$(walk --icons "$@")"
 }
+
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
 gr() {
 	cd "$(git rev-parse --show-toplevel)"
@@ -130,5 +131,3 @@ setopt interactive_comments
 setopt nocasematch
 setopt pushd_to_home
 setopt share_history
-
-[ -r "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
