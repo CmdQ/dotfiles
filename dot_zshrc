@@ -3,7 +3,7 @@ iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 
 # Keep only the first occurrence of each duplicated value.
 # path is the array version of PATH.
-typeset -U PATH path
+typeset -U path
 
 # https://docs.brew.sh/Installation
 for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin
@@ -128,7 +128,6 @@ setopt hist_no_functions
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt hist_verify
-setopt ignore_eof
 setopt inc_append_history
 setopt interactive_comments
 setopt nocasematch
