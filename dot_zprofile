@@ -1,3 +1,20 @@
 # Keep only the first occurrence of each duplicated value.
 # path is the array version of PATH.
 typeset -U PATH path
+
+# https://docs.brew.sh/Installation
+for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin
+do
+	if [[ -x "$homebrew_path/bin/brew" ]]
+	then
+        # Homebrew is prepended to override others.
+		path=("$homebrew_path/bin" "$homebrew_path/sbin" $path)
+		break
+	fi
+done
+
+# These have lower priority and are appended.
+for append in .local .cargo
+do
+	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
+done

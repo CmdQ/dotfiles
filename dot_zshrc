@@ -5,16 +5,8 @@ iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 # path is the array version of PATH.
 typeset -U PATH path
 
-# https://docs.brew.sh/Installation
-for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin dummy
-do
-	if [[ -x "$homebrew_path/bin/brew" ]]
-	then
-		path=("$homebrew_path/bin" "$homebrew_path/sbin" $path)
-		break
-	fi
-done
-if [[ $homebrew_path != dummy ]]
+# Load homebrew completions.
+if command -v brew >/dev/null
 then
 	# Also load the completion goodies.
 	site_functions="$homebrew_path/share/zsh/site-functions"
@@ -41,12 +33,6 @@ then
 fi
 command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
-# These have lower priority and are appended.
-for append in .local .cargo
-do
-	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
-done
-
 # https://github.com/antonmedv/walk
 function ce {
 	cd "$(walk --icons "$@")"
@@ -62,7 +48,7 @@ source "$HOME/.zplug.zsh"
 
 autoload -Uz compinit
 for dump in "$HOME"/.zcompdump(N.mh+24); do
-  compinit
+	compinit
 done
 compinit -C
 
