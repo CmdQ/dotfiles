@@ -56,10 +56,18 @@ compinit -C
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
 
-for f in .zsh_local .aliases.bash .git_aliases.bash amazon.zsh
+for f in .zsh_local .aliases.bash .git_aliases.bash
 do
 	[[ -f $HOME/$f ]] && source "$HOME/$f"
 done
+
+if is_amazon
+then
+	for f in .amazon.zsh
+	do
+		[[ -f $HOME/$f ]] && source "$HOME/$f"
+	done
+fi
 
 make_aliases() {
 	local grep=egrep
