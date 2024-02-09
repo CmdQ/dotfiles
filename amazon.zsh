@@ -59,7 +59,7 @@ needs_cr_link() {
 # Create a CR of one commit.
 cr1() {
     local upsteam=origin/mainline
-    if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) == $upsteam ]]
+    if ! [[ $(git rev-parse --abbrev-ref HEAD@{upstream}) = $upsteam ]]
     then
         echo "Your branch $(git rev-parse --abbrev-ref HEAD) is not tracking $upsteam!"
         while
@@ -78,7 +78,7 @@ cr1() {
 
     args=("$@")
     if (( $# == 0 )); then
-        if [[ $- == *i* ]] && command -v fzf >/dev/null; then
+        if [[ $- = *i* ]] && command -v fzf >/dev/null; then
             selected=$( \
                 git log --oneline --decorate -12 | \
                 fzf +s +m --reverse --prompt 'Which commit for CR? ' \
@@ -86,7 +86,7 @@ cr1() {
                 cut -d ' ' -f 1
             )
             [[ -z $selected ]] && echo No selection, cancelling. && return 130
-            [[ $(git log -1 --pretty=%h HEAD) == $selected ]] && needs_cr_link $selected && args+="--amend"
+            [[ $(git log -1 --pretty=%h HEAD) = $selected ]] && needs_cr_link $selected && args+="--amend"
             cr --range "${selected}~:${selected}" "${args[@]}"
         else
             cr1 0
@@ -205,7 +205,7 @@ unauth() {
     kdestroy -A
 }
 
-function unittests {
+unittests() {
     typeset -hU dirs=()
     for dir in unit integ; do
         local name="brazil-$dir-tests"
