@@ -109,12 +109,12 @@ cr1() {
 
 # Transfer Midway cookie, connect to clouddesk and start tmux right away.
 tunnel() {
-    if is_amazon_clouddesk; then
+    if is_amazon clouddesk; then
         echo "It seems you are already on your cloud desktop."
         return
     fi
 
-    if is_amazon_laptop; then
+    if is_amazon laptop; then
         pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
     fi
     ssh-add -qt 1d
@@ -151,7 +151,7 @@ kinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
         command kinit "$@"
-    elif ! is_amazon_laptop && ! klist -s; then
+    elif ! is_amazon laptop && ! klist -s; then
         # Don't run kinit on Mac anymore. Otherwise try to refresh first.
         kinit -R 2>/dev/null || kinit -fp -l 10h -r 7d
     fi
@@ -169,7 +169,7 @@ mwinit() {
     # Only override the no argument call.
     if (( $# > 0 )); then
         args=("$@")
-        if ! is_amazon_laptop
+        if ! is_amazon laptop
         then
             args+=-o
         fi
@@ -237,7 +237,7 @@ EOF
             which=build
             ;;
     esac
-    if is_amazon_clouddesk; then
+    if is_amazon clouddesk; then
         python3 -m http.server -d "$which"
     else
         open "$which/index.html"

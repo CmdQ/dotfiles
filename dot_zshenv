@@ -12,14 +12,24 @@ mkcd() {
     fi
 }
 
-is_amazon_laptop() {
-    [[ $(hostname) = *.ant.amazon.com ]]
-}
-
-is_amazon_clouddesk() {
-    [[ $(hostname) = dev-dsk-$(whoami)-* ]]
-}
-
 is_amazon() {
-    is_amazon_laptop || is_amazon_clouddesk
+    if [[ -z $1 ]]
+    then
+        is_amazon laptop || is_amazon clouddesk
+    else
+        case $1 in
+            laptop)
+                [[ $(hostname) = *.ant.amazon.com ]]
+                ;;
+            clouddsk|clouddesk|devdsk|devdesk)
+                [[ $(hostname) = dev-dsk-$(whoami)-* ]]
+                ;;
+            apollo)
+                [[ -d /apollo ]]
+                ;;
+            *)
+                false
+                ;;
+        esac
+    fi
 }
