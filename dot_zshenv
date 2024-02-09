@@ -1,0 +1,25 @@
+export GITHUB_USERNAME=CmdQ
+export ET_NO_TELEMETRY=set
+export EDITOR=hx
+export LESS='--clear-screen --quit-if-one-screen --ignore-case --hilite-unread --incsearch'
+
+mkcd() {
+    if (($# != 1))
+	then
+        echo 'Provide name of directory(/chain) as the only argument.'
+    else
+        mkdir -p "$1" && cd "$1" || echo 'Couldn'\''t create directory.'
+    fi
+}
+
+is_amazon_laptop() {
+    [[ $(hostname) = *.ant.amazon.com ]]
+}
+
+is_amazon_clouddesk() {
+    [[ $(hostname) = dev-dsk-$(whoami)-* ]]
+}
+
+is_amazon() {
+    is_amazon_laptop || is_amazon_clouddesk
+}

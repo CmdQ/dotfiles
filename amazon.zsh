@@ -107,17 +107,9 @@ cr1() {
     fi
 }
 
-is_amazon_laptop() {
-    [[ $(hostname) = *.ant.amazon.com ]]
-}
-
-is_clouddesk() {
-    [[ $(hostname) = dev-dsk-$(whoami)-* ]]
-}
-
 # Transfer Midway cookie, connect to clouddesk and start tmux right away.
 tunnel() {
-    if is_clouddesk; then
+    if is_amazon_clouddesk; then
         echo "It seems you are already on your cloud desktop."
         return
     fi
@@ -245,7 +237,7 @@ EOF
             which=build
             ;;
     esac
-    if is_clouddesk; then
+    if is_amazon_clouddesk; then
         python3 -m http.server -d "$which"
     else
         open "$which/index.html"

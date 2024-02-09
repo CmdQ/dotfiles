@@ -3,7 +3,7 @@ iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 
 # Keep only the first occurrence of each duplicated value.
 # path is the array version of PATH.
-typeset -U path
+typeset -U PATH path
 
 # https://docs.brew.sh/Installation
 for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin
@@ -68,20 +68,9 @@ for dump in "$HOME"/.zcompdump(N.mh+24); do
 done
 compinit -C
 
-export GITHUB_USERNAME=CmdQ
 # https://www.chezmoi.io/
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
-
-mkcd() {
-    if (($# != 1))
-	then
-        echo 'Provide name of directory(/chain) as the only argument.'
-    else
-        mkdir -p "$1" && cd "$1" || echo 'Couldn'\''t create directory.'
-    fi
-}
-
 
 for f in .zsh_local aliases.sh git.alias amazon.zsh
 do
@@ -97,10 +86,10 @@ make_aliases() {
 	alias -g AN="&>/dev/null"
 	alias -g G="|$grep"
 	alias -g IG="G -i"
-	alias -g L="|less -R"
+	alias -g L="|less"
 	alias -g GG="2>&1 |$grep"
 	alias -g IGG="2>&1 IG"
-	alias -g LL="2>&1 |less -R"
+	alias -g LL="2>&1 |less"
 }
 make_aliases
 
@@ -115,7 +104,6 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 bindkey '^Q' push-line-or-edit
 
-export ET_NO_TELEMETRY=set
 export SAVEHIST=99999
 export HISTFILE="$HOME/.zsh_history"
 setopt auto_cd
