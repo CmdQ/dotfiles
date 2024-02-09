@@ -6,7 +6,7 @@ iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 typeset -U PATH path
 
 # https://docs.brew.sh/Installation
-for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin
+for homebrew_path in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local/bin dummy
 do
 	if [[ -x "$homebrew_path/bin/brew" ]]
 	then
@@ -14,10 +14,8 @@ do
 		break
 	fi
 done
-if command -v brew >/dev/null
+if [[ $homebrew_path != dummy ]]
 then
-	homebrew_path=$(brew --prefix)
-
 	# Also load the completion goodies.
 	site_functions="$homebrew_path/share/zsh/site-functions"
 	if [[ -d $site_functions ]]
