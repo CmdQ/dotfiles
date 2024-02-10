@@ -33,11 +33,6 @@ then
 fi
 command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
-# https://github.com/antonmedv/walk
-function ce {
-	cd "$(walk --icons "$@")"
-}
-
 [ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
 gr() {
