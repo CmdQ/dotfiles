@@ -14,7 +14,7 @@
 [core]
 	longpaths = true
 	excludesfile = ~/.gitignore
-	pager = less -FMRiX
+	pager = delta
 [push]
 	default = simple
 [fetch]
@@ -32,8 +32,10 @@
 [diff]
 	algorithm = histogram
 	tool = vscode
+	colorMoved = default
 [merge]
 	tool = vscode
+	conflictstyle = diff3
 [rebase]
 	autoSquash = true
 	updateRefs = true
@@ -42,6 +44,7 @@
 [delta]
     features = side-by-side line-numbers decorations
     whitespace-error-style = 22 reverse
+	navigate = true
 
 [delta "decorations"]
     commit-decoration-style = bold yellow box ul
