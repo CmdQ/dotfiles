@@ -1,7 +1,8 @@
 export GITHUB_USERNAME=CmdQ
 export ET_NO_TELEMETRY=set
 export EDITOR=hx
-export LESS='--clear-screen --quit-if-one-screen --ignore-case --hilite-unread --incsearch'
+export LESS='--clear-screen --ignore-case --hilite-unread --no-init'
+export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
 
 mkcd() {
     if (($# != 1))

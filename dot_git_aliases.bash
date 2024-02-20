@@ -57,7 +57,7 @@ alias gdts='git difftool --staged'
 
 alias gf='git fetch'
 alias gl='git pull'
-alias gp='git push'
+alias gp='git push --force-with-lease'
 alias gpsup='git push --set-upstream $(git_remote_name) $(git_current_branch)'
 
 alias gignore='git update-index --assume-unchanged'

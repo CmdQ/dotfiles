@@ -73,3 +73,6 @@
 	autoSetupRebase = always
 [color]
 	ui = auto
+[maintenance]
+	repo = /Volumes/workplace/review/src/WalletService
+	strategy = incremental
