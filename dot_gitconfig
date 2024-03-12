@@ -74,8 +74,13 @@
 	defaultBranch = main
 [branch]
 	autoSetupRebase = always
+	sort = -committerdate
 [color]
 	ui = auto
 [maintenance]
 	repo = /Volumes/workplace/review/src/WalletService
 	strategy = incremental
+[log]
+	date = local
+[tag]
+	sort = version:refname
