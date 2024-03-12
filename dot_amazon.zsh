@@ -118,16 +118,17 @@ tunnel() {
         pgrep -x ssh-agent >/dev/null || [[ -S $SSH_AUTH_SOCK ]] || eval "$(ssh-agent -s)"
     fi
     ssh-add -qt 1d
-    if command -v et >/dev/null; then
+    tmux_start=(/home/linuxbrew/.linuxbrew/bin/tmux new -As0)
+    if false && command -v et >/dev/null; then
         # https://github.com/MisterTea/EternalTerminal
-        et -f -t 1044:1044,5005:5005,8000:8000 "$@" etdesktop -c 'tmux new -As0'
+        et -f -t 1044:1044,5005:5005,8000:8000 "$@" etdesktop -c "$tmux_start[@]"
         # See https://w.amazon.com/bin/view/Users/Bozak/EternalTerminal/WSSH/ for the WSSH automation.
     else
         ssh -At \
             -L 1044:localhost:1044 \
             -L 5005:localhost:5005 \
             -L 8000:localhost:8000 \
-            "$@" clouddesk tmux new -As0
+            "$@" clouddesk "$tmux_start[@]"
     fi
 }
 
