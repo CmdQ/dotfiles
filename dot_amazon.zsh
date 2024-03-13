@@ -245,6 +245,13 @@ EOF
     fi
 }
 
+keymaster_trouble() {
+    for cmd in Deactivate Preactivate Activate
+    do
+        sudo /apollo/bin/runCommand -a "$cmd" -e WalletHEXService.CONSUMES.KeyMasterDaemon
+    done
+}
+
 # Brazil needs an x86_64 perl, which macOS does not provide, so
 #   brew install perl
 # By default non-brewed cpan modules are installed to the Cellar. If you wish
