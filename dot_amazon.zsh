@@ -192,8 +192,10 @@ mwinit() {
 
 # Single command for both authorizations.
 mkinit() {
-    if (( $# > 0 )); then
-        echo mkinit alias doesn\'t take arguments!
+    if (( $# == 1 )) && [[ $@[1] == "-r" ]]; then
+        mwinit -d
+    elif (( $# > 0 )); then
+        echo "mkinit only understands the -r argument to refresh (delete first)."
         return 1
     fi
     kinit
