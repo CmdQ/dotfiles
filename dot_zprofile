@@ -18,3 +18,8 @@ for append in .local .cargo
 do
 	[[ -d "$HOME/$append/bin" ]] && path+="$HOME/$append/bin"
 done
+
+append=/usr/local/share/dotnet
+[[ -x $append/dotnet ]] && path+="$append"
+append="$HOME/.dotnet/tools"
+[[ -d $append ]] && path+="$append"
