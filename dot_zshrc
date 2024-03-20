@@ -23,8 +23,8 @@ if command -v pyenv >/dev/null
 then
 	eval "$(pyenv init -)"
 	command -v py >/dev/null && export PY_PYTHON=$(pyenv global | grep -o '[0-9]\+\.[0-9]\+')
+	command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 fi
-command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 
 [ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
