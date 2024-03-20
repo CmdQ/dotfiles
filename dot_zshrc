@@ -8,20 +8,13 @@ typeset -U PATH path
 # Load homebrew completions.
 if command -v brew >/dev/null
 then
+	homebrew_path=$(brew --prefix)
 	# Also load the completion goodies.
 	site_functions="$homebrew_path/share/zsh/site-functions"
 	if [[ -d $site_functions ]]
 	then
-		fpath=($site_functions $fpath)
+		fpath=($fpath $site_functions)
 		autoload -U $site_functions/*(:t)
-		type _amazon_completions >/dev/null && _amazon_completions
-	fi
-
-	# More completions.
-	homebrew_complet="$homebrew_path/share/zsh/site-functions"
-	if [[ -d $homebrew_complet ]]
-	then
-		fpath=($fpath /opt/homebrew/share/zsh/site-functions)
 	fi
 fi
 
@@ -41,12 +34,6 @@ gr() {
 
 source "$HOME/.zplug.zsh"
 
-autoload -Uz compinit
-for dump in "$HOME"/.zcompdump(N.mh+24); do
-	compinit
-done
-compinit -C
-
 # https://www.chezmoi.io/
 # chezmoi init --apply https://github.com/CmdQ/dotfiles.git
 command -v chezmoi >/dev/null && eval "$(chezmoi completion zsh)"
@@ -63,6 +50,12 @@ then
 		[[ -f $HOME/$f ]] && source "$HOME/$f"
 	done
 fi
+
+autoload -Uz compinit
+for dump in "$HOME"/.zcompdump(N.mh+24); do
+	compinit
+done
+compinit -C
 
 make_aliases() {
 	local grep=egrep

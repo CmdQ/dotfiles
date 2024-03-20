@@ -15,6 +15,9 @@ then
     complet=$(command ls "$HOME"/.toolbox/tools/brazilcli/**/brazil_completion.zsh(om[1]))
     [[ -f $complet ]] && source "$complet"
 fi
+# Override/cancel it's completions because they easily take over 10 s:
+_brazil-build() {}
+type _amazon_completions >/dev/null && _amazon_completions
 
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
