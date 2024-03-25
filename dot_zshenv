@@ -1,5 +1,6 @@
 export GITHUB_USERNAME=CmdQ
 export ET_NO_TELEMETRY=set
+export FLOX_DISABLE_METRICS=true
 export EDITOR=hx
 export LESS='--clear-screen --ignore-case --hilite-unread --no-init'
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"

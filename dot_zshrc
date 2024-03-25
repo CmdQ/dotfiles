@@ -51,6 +51,9 @@ then
 	done
 fi
 
+# Case insensitive completion if that's the only that makes sense:
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[-_./]=* r:|=*'
+
 autoload -Uz compinit
 for dump in "$HOME"/.zcompdump(N.mh+24); do
 	compinit
