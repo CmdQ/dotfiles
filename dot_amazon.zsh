@@ -257,6 +257,22 @@ keymaster_trouble() {
     done
 }
 
+wallet_ada_profiles() {
+    same=(profile add --role=Operator-ReadOnly --provider=conduit)
+    ada "${same[@]}" --account=620308156200 --profile=wallet+devo
+    ada "${same[@]}" --account=177607377190 --profile=wallet+prod
+    ada "${same[@]}" --account=000362911234 --partition=aws-cn --profile=wallet+prod+cn
+    unset same
+}
+
+customer_encrypt() {
+    /apollo/bin/env -e envImprovement encrypt.rb "$@"
+}
+
+customer_decrypt() {
+    /apollo/bin/env -e envImprovement decrypt.rb "$@"
+}
+
 # Brazil needs an x86_64 perl, which macOS does not provide, so
 #   brew install perl
 # By default non-brewed cpan modules are installed to the Cellar. If you wish

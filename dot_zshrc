@@ -76,6 +76,11 @@ make_aliases() {
 }
 make_aliases
 
+# A debug function that prints each argument that's passed on a new line.
+debug_arguments() {
+	printf '%s\n' "$@"
+}
+
 set -o emacs
 
 autoload -U up-line-or-beginning-search
