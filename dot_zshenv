@@ -3,7 +3,7 @@ export ET_NO_TELEMETRY=set
 export FLOX_DISABLE_METRICS=true
 export EDITOR=hx
 export LESS='--clear-screen --ignore-case --hilite-unread --no-init'
-export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+export DOTNET_ROOT=/usr/local/share/dotnet
 
 mkcd() {
     if (($# != 1))
