@@ -92,20 +92,25 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 bindkey '^Q' push-line-or-edit
 
-export SAVEHIST=99999
+export SAVEHIST=999999
 export HISTFILE="$HOME/.zsh_history"
+export HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
+export HIST_STAMPS="yyyy-mm-dd"
 setopt auto_cd
 setopt extended_glob
-setopt extended_history
+setopt extended_history      # Write the history file in the ':start:elapsed;command' format.
 setopt hist_expire_dups_first
 setopt hist_find_no_dups
-setopt hist_ignore_space
+setopt hist_ignore_all_dups  # Delete an old recorded event if a new event is a duplicate.
+setopt hist_ignore_dups      # Do not record an event that was just recorded again.
+setopt hist_ignore_space     # Do not record an event starting with a space.
 setopt hist_no_functions
-setopt hist_reduce_blanks
-setopt hist_save_no_dups
-setopt hist_verify
-setopt inc_append_history
+setopt hist_no_store         # Don't store history commands
+setopt hist_reduce_blanks    # Remove superfluous blanks from each command line being added to the history.
+setopt hist_save_no_dups     # Do not write a duplicate event to the history file.
+setopt hist_verify           # Do not execute immediately upon history expansion.
+setopt inc_append_history    # Write to the history file immediately, not when the shell exits.
 setopt interactive_comments
 setopt nocasematch
 setopt pushd_to_home
-setopt share_history
+setopt share_history         # Share history between all sessions.
