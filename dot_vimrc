@@ -26,6 +26,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'unblevable/quick-scope'
 Plug 'vim-airline/vim-airline'
+Plug 'stevearc/oil.nvim'
 call plug#end()
 
 filetype plugin on
