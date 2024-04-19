@@ -6,7 +6,6 @@ if [[ -f $zplug_home ]] && source "$zplug_home"
 then
 	zplug plugins/sudo, from:oh-my-zsh
 	zplug plugins/fzf, from:oh-my-zsh
-	zplug plugins/magic-enter, from:oh-my-zsh
 	zplug plugins/starship, from:oh-my-zsh, lazy:true
 	zplug zsh-users/zsh-autosuggestions, lazy:true
 
