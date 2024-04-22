@@ -45,7 +45,7 @@ done
 
 if is_amazon
 then
-	for f in .amazon.zsh
+	for f in .job.zsh
 	do
 		[[ -f $HOME/$f ]] && source "$HOME/$f"
 	done
