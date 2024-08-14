@@ -44,5 +44,7 @@ make_aliases() {
 	fi
 
 	command -v lazygit >/dev/null && alias lg=lazygit
+
+	[[ -d /Applications/portacle/Portacle.app ]] && alias portacle='open -a /Applications/portacle/Portacle.app'
 }
 make_aliases
