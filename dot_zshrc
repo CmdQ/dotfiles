@@ -71,6 +71,7 @@ _dotnet () {
 }
 command -v dotnet >/dev/null && compdef _dotnet dotnet
 
+# This should do "expensive" work only once per day.
 autoload -Uz compinit
 for dump in "$HOME"/.zcompdump(N.mh+24); do
 	compinit
