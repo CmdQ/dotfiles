@@ -244,7 +244,7 @@ EOF
             ;;
     esac
     if is_amazon clouddesk; then
-        python3 -m http.server -d "$which"
+        python3 -m http.server -b localhost -d "$which"
     else
         open "$which/index.html"
     fi
