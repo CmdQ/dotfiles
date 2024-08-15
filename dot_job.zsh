@@ -188,7 +188,7 @@ mwinit() {
     else
         [[ -x refresh_aea.zsh ]] && refresh_aea.zsh
         if ! command mwinit -t 2>/dev/null |grep -qF 'certificate not expired'; then
-            mwinit -s
+            mwinit -s -f
         fi
     fi
 }
