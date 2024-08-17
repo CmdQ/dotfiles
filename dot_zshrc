@@ -26,7 +26,7 @@ then
 	command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
 fi
 
-[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
+[[ -f "$HOME/.config/broot/launcher/bash/br" ]] && source "$HOME/.config/broot/launcher/bash/br"
 
 gr() {
 	cd "$(git rev-parse --show-toplevel)"
@@ -51,11 +51,12 @@ then
 	done
 fi
 
+[[ -d $HOME/.config/emacs/bin ]] && path+="$HOME/.config/emacs/bin"
+
 # Case insensitive completion if that's the only that makes sense:
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[-_./]=* r:|=*'
 
 # zsh parameter completion for the dotnet CLI
-
 _dotnet () {
 	local completions=("$(dotnet complete "$words")")
 
