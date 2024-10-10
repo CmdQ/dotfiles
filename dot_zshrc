@@ -2,8 +2,8 @@ iterm_helpers="${HOME}/.iterm2_shell_integration.zsh"
 [[ -f $iterm_helpers ]] && source "$iterm_helpers"
 
 # Keep only the first occurrence of each duplicated value.
-# path is the array version of PATH.
-typeset -U PATH path
+#  is the array version of PATH.
+typeset -U PATH
 
 # Load homebrew completions.
 if command -v brew >/dev/null
