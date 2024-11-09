@@ -1,5 +1,3 @@
-# #!/usr/bin/env bash
-
 # Check if gerrit exists instead of master
 git_remote_name() {
   for remote in $(git remote);

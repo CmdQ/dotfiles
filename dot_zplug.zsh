@@ -14,13 +14,8 @@ then
 
 	zplug plugins/ripgrep, from:oh-my-zsh, lazy:true
 	zplug plugins/fd, from:oh-my-zsh, lazy:true
-	zplug plugins/aws, from:oh-my-zsh, lazy:true
 	zplug plugins/git-commit, from:oh-my-zsh, lazy:true
 	zplug plugins/git-escape-magic, from:oh-my-zsh, lazy:true
-	if zplug check plugins/aws
-	then
-		export SHOW_AWS_PROMPT=false
-	fi
 
 	# Install plugins if there are plugins that have not been installed
 	if ! zplug check --verbose

@@ -43,14 +43,6 @@ do
 	[[ -f $HOME/$f ]] && source "$HOME/$f"
 done
 
-if is_amazon
-then
-	for f in .job.zsh
-	do
-		[[ -f $HOME/$f ]] && source "$HOME/$f"
-	done
-fi
-
 [[ -d $HOME/.config/emacs/bin ]] && path+="$HOME/.config/emacs/bin"
 
 # Case insensitive completion if that's the only that makes sense:

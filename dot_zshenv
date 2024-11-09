@@ -13,25 +13,3 @@ mkcd() {
         mkdir -p "$1" && cd "$1" || echo 'Couldn'\''t create directory.'
     fi
 }
-
-is_amazon() {
-    if [[ -z $1 ]]
-    then
-        is_amazon laptop || is_amazon clouddesk
-    else
-        case $1 in
-            laptop)
-                [[ $(hostname) = *.ant.amazon.com ]]
-                ;;
-            clouddsk|clouddesk|devdsk|devdesk)
-                [[ $(hostname) = dev-dsk-$(whoami)-* ]]
-                ;;
-            apollo)
-                [[ -d /apollo ]]
-                ;;
-            *)
-                false
-                ;;
-        esac
-    fi
-}

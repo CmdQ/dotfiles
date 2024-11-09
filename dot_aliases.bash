@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 make_aliases() {
 	alias ...='cd ../..'
 	alias ....='cd ../../..'
