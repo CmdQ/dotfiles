@@ -17,8 +17,12 @@
 	pager = delta
 [push]
 	default = simple
+	autoSetupRemote = true
+	followTags = true
 [fetch]
 	prune = true
+	pruneTags = true
+	all = true
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
@@ -32,13 +36,16 @@
 [diff]
 	algorithm = histogram
 	tool = vscode
-	colorMoved = default
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 [merge]
 	tool = vscode
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [rebase]
 	autoSquash = true
 	updateRefs = true
+	autoStash = true
 
 # https://github.com/dandavison/delta#configuration
 [delta]
@@ -84,3 +91,7 @@
 	date = local
 [tag]
 	sort = version:refname
+[column]
+	ui = auto
+[help]
+	autocorrect = prompt
