@@ -27,7 +27,8 @@ abbr -a gdts git difftool --staged
 
 abbr -a gf git fetch
 abbr -a gl git pull
-abbr -a gp git push --force-with-lease
+abbr -a gp git push
+abbr -a gpf git push --force-with-lease
 
 abbr -a gignore git update-index --assume-unchanged
 abbr -a gunignore git update-index --no-assume-unchanged
