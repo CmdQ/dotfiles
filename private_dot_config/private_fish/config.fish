@@ -3,5 +3,6 @@ if status is-interactive
     source ~/.config/fish/aliases.fish
     source ~/.config/fish/git_aliases.fish
 
-    fish_add_path --global --prepend /opt/homebrew/bin $HOME/.local/bin $HOME/.dotnet/tools $HOME/.cargo/bin
+    fish_add_path --global --prepend /opt/homebrew/bin
+    fish_add_path --global $HOME/.local/bin $HOME/.dotnet/tools $HOME/.cargo/bin
 end
