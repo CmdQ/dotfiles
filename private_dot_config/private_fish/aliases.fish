@@ -1,6 +1,6 @@
 begin
 	set -l dir ls
-	if type -q lsda
+	if type -q lsd
 		set -l dir lsd
 		alias ls $dir
 		alias l="$dir -l --group-dirs=first"
