@@ -17,3 +17,18 @@ begin
 end
 
 alias lg=lazygit
+alias pre-commit="uv run pre-commit"
+
+if set -q WSL_DISTRO_NAME
+	# sudo apt install wslu
+	if command -v wslview > /dev/null
+		alias v=wslview
+		alias wp=wslpath
+		alias wv=wslvar
+		alias xnview='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe"'
+		alias xnviewb='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe" -browse'
+	end
+	alias expl=explorer.exe
+	alias pbcopy=clip.exe
+	alias wsl-kill='wsl.exe --shutdown'
+end
