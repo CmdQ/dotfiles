@@ -12,18 +12,4 @@ for path in $brew_paths
     end
 end
 
-fish_add_path --global --append $HOME/.local/bin $HOME/.dotnet/tools $HOME/.cargo/bin $HOME/miniconda3/bin
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /home/clash/miniconda3/bin/conda
-    eval /home/clash/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-else
-    if test -f "/home/clash/miniconda3/etc/fish/conf.d/conda.fish"
-        . "/home/clash/miniconda3/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH "/home/clash/miniconda3/bin" $PATH
-    end
-end
-# <<< conda initialize <<<
-
+fish_add_path --global --append $HOME/.local/bin $HOME/.dotnet/tools $HOME/.cargo/bin

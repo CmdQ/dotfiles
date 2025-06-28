@@ -1,3 +1,7 @@
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
 begin
 	set -l dir ls
 	if type -q lsd
@@ -16,17 +20,21 @@ begin
 	alias la="ls -a"
 end
 
-alias lg=lazygit
-alias pre-commit="uv run pre-commit"
+type -q lazygit; and alias lg=lazygit
+type -q fdfind; and alias fd=fdfind
+type -q aichat; and alias ai=aichat
+type -q aichat; and alias how2='aichat -e'
+type -q aider; and alias aider='aider --model=azure/gpt-4.1-mini'
 
 if set -q WSL_DISTRO_NAME
-	# sudo apt install wslu
-	if command -v wslview > /dev/null
+	if type -q wslview
 		alias v=wslview
 		alias wp=wslpath
 		alias wv=wslvar
-		alias xnview='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe"'
-		alias xnviewb='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe" -browse'
+		alias xnv='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe"'
+		alias xnvb='"/mnt/c/Program Files/XnViewMP/xnviewmp.exe" -browse'
+	else
+		echo "! sudo apt install wslu"
 	end
 	alias expl=explorer.exe
 	alias pbcopy=clip.exe

@@ -32,9 +32,6 @@ make_aliases() {
 	export EDITOR
 
 	alias ppup="python3 -m pip install --upgrade pip && python3 -m pip install wheel"
-	alias mipy="mypy --ignore-missing-imports"
-	alias pywest="pytest --disable-warnings"
-	alias po=poetry
 
 	if command -v rg >/dev/null && command -v sk >/dev/null; then
 		local skrg='rg --color=always --line-number "{}"'
@@ -42,7 +39,8 @@ make_aliases() {
 	fi
 
 	command -v lazygit >/dev/null && alias lg=lazygit
-
-	[[ -d /Applications/portacle/Portacle.app ]] && alias portacle='open -a /Applications/portacle/Portacle.app'
+	command -v fdfind >/dev/null && alias fd=fdfind
+	command -v aichat >/dev/null && alias ai=aichat
+	command -v aichat >/dev/null && alias how2='aichat -e'
 }
 make_aliases

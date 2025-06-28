@@ -93,6 +93,8 @@ alias grst='git restore --staged'
 
 alias grw='git review --yes'
 
+alias gsp='git sparse-checkout'
+
 alias gss='git status -sb'
 alias gst='git status'
 
@@ -104,3 +106,6 @@ alias gstp='git stash pop'
 
 alias gsw='git switch'
 alias gswc='git switch -c'
+
+alias gwt='git worktree'
+

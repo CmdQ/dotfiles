@@ -60,6 +60,8 @@ abbr -a grst git restore --staged
 
 abbr -a grw git review --yes
 
+abbr -a gsp git sparse-checkout
+
 abbr -a gss git status -sb
 abbr -a gst git status
 
@@ -71,6 +73,8 @@ abbr -a gstp git stash pop
 
 abbr -a gsw git switch
 abbr -a gswc git switch -c
+
+abbr -a gwt git worktree
 
 # Check if gerrit exists instead of master
 function git_remote_name
@@ -105,3 +109,4 @@ alias gmom="git merge (git_remote_name)/(git_main_branch)"
 alias gmum="git merge upstream/(git_main_branch)"
 alias grbm="git rebase --update-refs (git_main_branch)"
 alias grbom="git rebase --update-refs (git_remote_name)/(git_main_branch)"
+alias grbo="git rebase --update-refs (git_remote_name)/(git rev-parse --abbrev-ref HEAD)"
