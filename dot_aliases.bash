@@ -19,6 +19,8 @@ make_aliases() {
 	fi
 	alias la="$ls -a"
 
+	alias wincp='rsync -av --chmod=D755,F644'
+
 	if command -v nvim &>/dev/null; then
 		alias vim=nvim
 		EDITOR=nvim
