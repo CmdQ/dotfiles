@@ -6,7 +6,7 @@ begin
 	set -l dir ls
 	if type -q lsd
 		set -l dir lsd
-		alias ls $dir
+		alias ls=$dir
 		alias l="$dir -l --group-dirs=first"
 		alias ll="$dir -la --group-dirs=first"
 		alias ld="$dir -lt --date=relative"
@@ -20,11 +20,11 @@ begin
 	alias la="ls -a"
 end
 
-type -q lazygit; and alias lg=lazygit
-type -q fdfind; and alias fd=fdfind
-type -q aichat; and alias ai=aichat
-type -q aichat; and alias how2='aichat -e'
-type -q aider; and alias aider='aider --model=azure/gpt-4.1-mini'
+type -q lazygit && alias lg=lazygit
+type -q fdfind && alias fd=fdfind
+type -q aichat && alias ai=aichat
+type -q aichat && alias how2='aichat -e'
+type -q aider && alias aider='aider --model=azure/gpt-4.1-mini'
 alias wincp='rsync -av --chmod=D755,F644'
 
 if set -q WSL_DISTRO_NAME

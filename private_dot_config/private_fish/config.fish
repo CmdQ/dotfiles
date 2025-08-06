@@ -1,9 +1,3 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-    source ~/.config/fish/aliases.fish
-    source ~/.config/fish/git_aliases.fish
-end
-
 set -l brew_paths /opt/homebrew /home/linuxbrew/.linuxbrew
 for path in $brew_paths
     if test -x $path/bin/brew
@@ -15,3 +9,11 @@ for path in $brew_paths
 end
 
 fish_add_path --global --append $HOME/.local/bin $HOME/.dotnet/tools $HOME/.cargo/bin
+
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    source ~/.config/fish/aliases.fish
+    source ~/.config/fish/git_aliases.fish
+end
+
+test -r .job.sh && source .job.sh

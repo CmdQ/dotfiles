@@ -10,7 +10,7 @@
 	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
 	list = log --oneline --no-merges -12
 [credential]
-	helper = cache
+	helper = /home/clash/.dotnet/tools/git-credential-manager
 [core]
 	longpaths = true
 	excludesfile = ~/.gitignore
@@ -95,3 +95,5 @@
 	ui = auto
 [help]
 	autocorrect = prompt
+[credential "https://dev.azure.com"]
+	useHttpPath = true
