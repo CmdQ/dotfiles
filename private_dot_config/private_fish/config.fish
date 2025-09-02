@@ -16,4 +16,4 @@ if status is-interactive
     source ~/.config/fish/git_aliases.fish
 end
 
-test -r .job.sh && source .job.sh
+test -r .job.fish && source .job.fish
