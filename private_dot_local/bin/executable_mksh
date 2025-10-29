@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -e
+set -u
+set -o pipefail
+
+if [ ! $# -eq 1 ]; then
+  echo 'mksh takes one argument' 1>&2
+  exit 1
+elif [ -e "$1" ]; then
+  echo "$1 already exists" 1>&2
+  exit 1
+fi
+
+# Detect file extension and create appropriate template
+case "$1" in
+  *.py) ##############################
+    echo '#!/usr/bin/env python3
+
+def main():
+    return
+
+if __name__ == "__main__":
+    exit(main())
+' > "$1"
+    ;;
+  *.fish) ##############################
+    echo '#!/usr/bin/env fish
+#set -l fish_trace 1
+' > "$1"
+    ;;
+  *.sh) ##############################
+    echo '#!/bin/sh
+set -eu
+' > "$1"
+    ;;
+  *) ##############################
+    # Default to bash template
+    echo '#!/usr/bin/env bash
+set -euo pipefail
+' > "$1"
+    ;;
+esac ##############################
+
+chmod u+x "$1"
+
+"$EDITOR" "$1"
