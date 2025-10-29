@@ -61,7 +61,7 @@
 [difftool]
 	prompt = false
 [difftool "vscode"]
-	cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --reuse-window --diff $LOCAL $REMOTE
 [difftool "diffsitter"]
 	cmd = diffsitter "$LOCAL" "$REMOTE"
 [difftool "difft"]
@@ -71,7 +71,7 @@
 	prompt = false
 	keepBackup = false
 [mergetool "vscode"]
-	cmd = code --wait $MERGED
+	cmd = code --wait --reuse-window $MERGED
 [pull]
 	rebase = true
 	ff = only
