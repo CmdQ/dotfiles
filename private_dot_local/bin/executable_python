@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "ERROR: Do not use plain 'python'! Always use 'uv'."
+echo "- Local files should be run like 'uv run script.py'."
+echo "- The local module should be run like 'uv run -m json'."
+echo "- Inline Python code should be run like 'uv run python -c \"import this\"'."
+echo "- Non-project tools should be run like 'uvx cowsay -t easy'."
+echo
+echo "https://docs.astral.sh/uv/reference/cli/#uv-run"
+exit 1

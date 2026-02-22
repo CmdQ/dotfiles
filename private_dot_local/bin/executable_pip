@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "ERROR: Do not use plain 'pip'!"
+echo "Always use 'uv add', 'uv remove' (the legacy 'uv pip' fallback only if really necessary)."
+echo "For one-off scripts, use 'uv add --script script.py library' to have it self-contained."
+echo
+echo "https://docs.astral.sh/uv/reference/cli/#uv-add"
+exit 1
