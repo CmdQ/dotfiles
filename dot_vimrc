@@ -26,7 +26,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'unblevable/quick-scope'
 Plug 'vim-airline/vim-airline'
-Plug 'stevearc/oil.nvim'
+if has('nvim')
+  Plug 'stevearc/oil.nvim'
+endif
 call plug#end()
 
 filetype plugin on
@@ -34,18 +36,18 @@ set wildmode=longest:full,full
 set splitbelow splitright
 set number relativenumber
 
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+noremap / <Plug>(incsearch-forward)
+noremap ? <Plug>(incsearch-backward)
+noremap g/ <Plug>(incsearch-stay)
 
 set hlsearch
 let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+noremap n  <Plug>(incsearch-nohl-n)
+noremap N  <Plug>(incsearch-nohl-N)
+noremap *  <Plug>(incsearch-nohl-*)
+noremap #  <Plug>(incsearch-nohl-#)
+noremap g* <Plug>(incsearch-nohl-g*)
+noremap g# <Plug>(incsearch-nohl-g#)
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1

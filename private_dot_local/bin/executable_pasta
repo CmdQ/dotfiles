@@ -2,12 +2,14 @@
 set -e
 set -u
 
-if command -v powershell.exe &>/dev/null; then
-  exec powershell.exe Get-Clipboard
+if [ -n "${WAYLAND_DISPLAY-}" ] && command -v wl-paste &>/dev/null; then
+  exec wl-paste --no-newline
 elif command -v pbpaste &>/dev/null; then
   exec pbpaste
 elif command -v xclip &>/dev/null; then
   exec xclip -selection clipboard -o
+elif command -v powershell.exe &>/dev/null; then
+  exec powershell.exe -NoProfile -Command "Get-Clipboard"
 elif [[ -e /tmp/clipboard ]]; then
   exec cat /tmp/clipboard
 else

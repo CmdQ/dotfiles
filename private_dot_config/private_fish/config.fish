@@ -16,7 +16,7 @@ if status is-interactive
 end
 fish_add_path --global --prepend --move $HOME/.local/bin
 
-test -r .job.fish && source .job.fish
+test -r $HOME/.job.fish && source $HOME/.job.fish
 
 if set -q WSL_DISTRO_NAME
     if functions -q fish_command_not_found && ! functions -q __fish_command_not_found_original

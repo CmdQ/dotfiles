@@ -33,8 +33,6 @@ make_aliases() {
 	fi
 	export EDITOR
 
-	alias ppup="python3 -m pip install --upgrade pip && python3 -m pip install wheel"
-
 	if command -v rg >/dev/null && command -v sk >/dev/null; then
 		local skrg='rg --color=always --line-number "{}"'
 		alias skf="sk --ansi -i -c '$skrg'"

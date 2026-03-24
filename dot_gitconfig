@@ -11,7 +11,7 @@
 	list = log --oneline --no-merges -12
 [credential]
 	azreposCredentialType = oauth
-	helper = /home/clash/.dotnet/tools/git-credential-manager
+	helper = ~/.dotnet/tools/git-credential-manager
 [core]
 	longpaths = true
 	excludesfile = ~/.gitignore
@@ -74,20 +74,12 @@
 [mergetool "vscode"]
 	cmd = code --wait --reuse-window $MERGED
 [pull]
-	rebase = true
 	ff = only
-[amazon]
-	append-cr-url = true
 [init]
 	defaultBranch = main
 [branch]
 	autoSetupRebase = always
 	sort = -committerdate
-[color]
-	ui = auto
-[maintenance]
-	repo = /Volumes/workplace/review/src/WalletService
-	strategy = incremental
 [log]
 	date = local
 [tag]

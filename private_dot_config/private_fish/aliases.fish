@@ -17,7 +17,7 @@ begin
         alias ll="$dir -la"
         alias ld="$dir -ltr"
     end
-    alias la="ls -a"
+    alias la="$dir -a"
 end
 
 type -q lazygit && alias lg=lazygit
@@ -38,7 +38,6 @@ if set -q WSL_DISTRO_NAME
         echo "! sudo apt install wslu"
     end
     alias expl=explorer.exe
-    alias pbcopy=clip.exe
     alias wsl-kill='wsl.exe --shutdown'
 end
 
@@ -48,7 +47,7 @@ function pyformat
     else
         set cmd uv
         set isort
-        uv run ruff -V &>/dev/null
+        uv run --no-sync ruff -V &>/dev/null
         if test $status -ne 0
             set -a cmd tool
             set isort --select I

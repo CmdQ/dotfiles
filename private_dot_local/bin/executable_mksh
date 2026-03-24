@@ -14,7 +14,7 @@ fi
 # Detect file extension and create appropriate template
 case "$1" in
   *.py) ##############################
-    echo '#!/usr/bin/env python3
+    echo '#!/usr/bin/env -S uv run --script
 
 def main():
     return
@@ -43,4 +43,4 @@ esac ##############################
 
 chmod u+x "$1"
 
-"$EDITOR" "$1"
+"${EDITOR:-vi}" "$1"

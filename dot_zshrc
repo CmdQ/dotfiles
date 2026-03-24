@@ -18,14 +18,6 @@ then
 	fi
 fi
 
-# This has higher priority and is installed by Homebrew, i.e. it needs to come after.
-if command -v pyenv >/dev/null
-then
-	eval "$(pyenv init -)"
-	command -v py >/dev/null && export PY_PYTHON=$(pyenv global | grep -o '[0-9]\+\.[0-9]\+')
-	command -v pyenv-virtualenv-init >/dev/null && eval "$(pyenv virtualenv-init -)"
-fi
-
 [[ -f "$HOME/.config/broot/launcher/bash/br" ]] && source "$HOME/.config/broot/launcher/bash/br"
 
 gr() {
@@ -106,7 +98,6 @@ bindkey '^Q' push-line-or-edit
 export SAVEHIST=999999
 export HISTFILE="$HOME/.zsh_history"
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd)*"
-export HIST_STAMPS="yyyy-mm-dd"
 setopt auto_cd
 setopt extended_glob
 setopt extended_history      # Write the history file in the ':start:elapsed;command' format.
@@ -120,7 +111,6 @@ setopt hist_no_store         # Don't store history commands
 setopt hist_reduce_blanks    # Remove superfluous blanks from each command line being added to the history.
 setopt hist_save_no_dups     # Do not write a duplicate event to the history file.
 setopt hist_verify           # Do not execute immediately upon history expansion.
-setopt inc_append_history    # Write to the history file immediately, not when the shell exits.
 setopt interactive_comments
 setopt nocasematch
 setopt pushd_to_home
