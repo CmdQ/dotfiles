@@ -11,7 +11,7 @@
 	list = log --oneline --no-merges -12
 [credential]
 	azreposCredentialType = oauth
-	helper = ~/.dotnet/tools/git-credential-manager
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
 [core]
 	longpaths = true
 	excludesfile = ~/.gitignore
@@ -91,4 +91,7 @@
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [credential "azrepos:org/SuperResX"]
+	username = tobiasbecker@microsoft.com
+	azureAuthority = https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47
+[credential "azrepos:org/cga-exchange"]
 	username = tobiasbecker@microsoft.com
