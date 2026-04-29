@@ -41,3 +41,7 @@ if set -q WSL_DISTRO_NAME
         return 127
     end
 end
+
+# BEGIN Agency MANAGED BLOCK
+fish_add_path "/home/clash/.config/agency/CurrentVersion"
+# END Agency MANAGED BLOCK
