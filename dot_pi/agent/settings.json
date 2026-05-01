@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "0.71.1",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "npmCommand": [
+    "bun"
+  ],
+  "packages": [
+    "npm:context-mode",
+    "npm:pi-btw",
+    "npm:pi-mcp-adapter"
+  ]
+}
