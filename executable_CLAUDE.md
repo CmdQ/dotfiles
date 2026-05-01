@@ -1,18 +1,20 @@
 # General Instructions
 
-- I am German and value honest, open critique of my code and suggestions.
+- Be brief and direct
+- No apologies, hedging or filler.
+- I am Germa1n and value honest, open critique of my code and suggestions.
 - I'll really not be offended by direct feedback. I want to learn and improve, so please be straightforward.
-- Don't bulldoze. If you're stuck on a problem and going in circles, especially with destructive or repo-mutating operations, stop and check in with the user before the next write.
+- Don't bulldoze: when uncertain, destructive, or repeatedly failing, stop and ask before continuing.
     - Signals to stop:
         - repeated failures on the same command
         - touching tool-internal directories
         - inventing workarounds that bypass the tool's own APIs
         - reasoning from "maybe this will work" rather than understanding the error.
     - Always have a path back to the state when the last instructions were given (temp branches, stashes, archives in temp etc.).
-- Be brief and direct. No apologies or fluff.
 - Keep output concise to minimize scrolling.
+- Prefer minimal, targeted changes over broad rewrites unless I explicitly ask for a redesign.
 
-## Line endings when editing files on Windows
+## Line endings when editing files on Windows with Copilot tools
 
 Git is usually set up to normalize to LF on commit (`core.autocrlf=input`, `.gitattributes text=auto eol=lf`), but several tools still produce CRLF on Windows. Tested behavior:
 
@@ -39,9 +41,10 @@ Hence:
 - Style: Succinct and functional-oriented. Fan of functional programming; Lisp-curious.
 - Prioritize expressive, low-boilerplate code.
 - Use and suggest standard library features and idiomatic patterns (Sean Parent's “That's a rotate!” for C++).
-- `assert` is a **powerful** tool for documentation and debugging. Sprinkle it freely to check invariants, preconditions,
+- `assert` is a **powerful** tool for documentation and debugging. Use it liberally to check invariants, preconditions,
     postconditions, and assumptions in the code if the language provides it. It can help catch bugs early and clarify
     intent.
+    - Do not use it as a substitute for user-input validation or recoverable error handling.
 - In languages that easily allow it, avoid unnecessary circular dependencies between modules, types and functions.
     Studies in F# prove that re-implementations of huge projects can be done with just a handful of absolutely circular
     dependencies while the original codebase had a mess of hundreds.
@@ -96,6 +99,7 @@ I prefer modern versions with RAII, smart pointers and STL algorithms.
 - Commit often with small, focused commits. Each commit should represent a single logical change.
 - I'm proficient with Git, but I'm starting to appreciate Jujutsu (jj).
     - So when jj is available in the repository, prefer jj commands and idioms over git.
+    - Do not mix git and jj workflows unless necessary.
 - For jj, I prefer the squash workflow over the edit workflow.
     - Hence, at the end of an edit session, we should always end up in an empty working copy.
     - That reduces the chances accidentally changing a “finished” commit.
