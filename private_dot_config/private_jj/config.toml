@@ -1,0 +1,29 @@
+[user]
+name = "Tobias Becker"
+email = "tobiasbecker@microsoft.com"
+
+[ui]
+default-command = "log"
+editor = "code -w"
+merge-editor = "vscode"
+
+[remotes.origin]
+auto-track-bookmarks = 'glob-i:"user/tobiasbecker/*" | glob-i:"user/cmdq/*"'
+
+[git]
+push-bookmark-prefix = "user/cmdq/push-"
+
+[aliases]
+bntip = ["edit", "bookmark_nonempty_tip($1)"]
+btip = ["edit", "bookmark_tip($1)"]
+ntip = ["edit", "stack_nonempty_tip(@)"]
+slide = ["bookmark", "move", "$1", "--to", "bookmark_nonempty_tip($1)"]
+tip = ["edit", "stack_tip(@)"]
+
+[revset-aliases]
+"bookmark_nonempty_tip(b)" = "latest(b:: ~ empty())"
+"bookmark_tip(b)" = "latest(b::)"
+"immutable_heads()" = "builtin_immutable_heads() | remote_bookmarks()"
+"stack_nonempty_tip(x)" = "latest(x:: ~ empty())"
+"stack_tip(x)" = "latest(x::)"
+push_target = "latest(::@ ~ empty())"
