@@ -16,24 +16,22 @@
 
 ## Line endings when editing files on Windows with Copilot tools
 
-Git is usually set up to normalize to LF on commit (`core.autocrlf=input`, `.gitattributes text=auto eol=lf`), but several tools still produce CRLF on Windows. Tested behavior:
+Git is usually set up to normalize to LF on commit (`core.autocrlf=input`, `.gitattributes text=auto eol=lf`), but several tools still produce CRLF on Windows. Treat this as a normal post-edit cleanup step, not a condition to diagnose every time.
 
-- **`create` tool: unconditionally writes CRLF on Windows.** Do not use it for files that should be LF. Use `[System.IO.File]::WriteAllText(path, text)` from PowerShell with `\n` in the string instead.
-- **`edit` tool: adapts to the file's existing EOL style.** It detects the first line's EOL and uses it for the replacement text.
-    - On an LF file: preserves LF (safe).
-    - On a CRLF file: converts LF in `new_str` to CRLF. Normalize the file to LF *before* editing if LF is the goal.
-- **PowerShell `Set-Content` / `Out-File` / `>` redirect**: preserves the body's newlines but appends a trailing `\r\n` unless `-NoNewline` is passed → mixed-EOL files.
-- **PowerShell `Add-Content`**: joins with `\r\n` → pure CRLF.
-- **PowerShell here-strings `@"..."@`**: CRLF (source parsing uses CRLF).
-- **PowerShell `[System.IO.File]::WriteAllText(path, "a`nb`n")`**: pure LF. Preferred for LF source files. (PowerShell's backtick-n inside double quotes is the LF escape.)
+Known CRLF sources:
+- **`create` tool: unconditionally writes CRLF on Windows.** Avoid it for files that should be LF.
+- **`edit` tool: adapts to the file's existing EOL style.** LF files stay LF, but CRLF files remain CRLF.
+- **PowerShell `Set-Content` / `Out-File` / `>` redirect**: appends a trailing `\r\n` unless `-NoNewline` is passed, which can create mixed-EOL files.
+- **PowerShell `Add-Content`**: joins with `\r\n`.
+- **PowerShell here-strings `@"..."@`**: CRLF because source parsing uses CRLF.
 
-Verification check (preferred, byte-aware): `git ls-files --eol <path>` — the `i/` column is authoritative for the index.
+Default workflow:
+- After editing tracked text/source files on Windows, run `dos2unix` on the edited files by default. Do not pre-check for CRLF first.
+- Then run `git diff --check -- <edited-files>` before reporting completion.
+- Do not apply this blindly to binaries, generated outputs, vendored files, or files that intentionally use CRLF.
+- If line endings are the task itself or something looks suspicious, use the `fixing-line-endings` skill and byte-aware checks such as `git ls-files --eol <path>`.
 
-Hence:
-- Don't use `create`, `Add-Content`, or here-strings! They force CRLF or mixed endings.
-- `Set-Content` / `Out-File` / `>` are fine **only with `-NoNewline`** and a body using PowerShell's backtick-n LF escape, e.g. `Set-Content -NoNewline -Path p -Value "no CRLFs in here"`. Never without `-NoNewline` as they append a CRLF.
-- `[System.IO.File]::WriteAllText(path, text)` with backtick-n in `text` is the most foolproof.
-- `edit` is safe as long as the file is already LF; if it's CRLF, normalize first.
+For new LF files or scripted writes, prefer APIs that avoid CRLF in the first place, e.g. PowerShell `[System.IO.File]::WriteAllText(path, "a`nb`n")`. Use `Set-Content -NoNewline` only with an LF-only body.
 
 ## Languages & Paradigms
 
@@ -42,8 +40,7 @@ Hence:
 - Prioritize expressive, low-boilerplate code.
 - Use and suggest standard library features and idiomatic patterns (Sean Parent's “That's a rotate!” for C++).
 - `assert` is a **powerful** tool for documentation and debugging. Use it liberally to check invariants, preconditions,
-    postconditions, and assumptions in the code if the language provides it. It can help catch bugs early and clarify
-    intent.
+    postconditions, and assumptions in the code if the language provides it. It can help catch bugs early and clarify intent.
     - Do not use it as a substitute for user-input validation or recoverable error handling.
 - In languages that easily allow it, avoid unnecessary circular dependencies between modules, types and functions.
     Studies in F# prove that re-implementations of huge projects can be done with just a handful of absolutely circular
