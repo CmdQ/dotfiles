@@ -2,8 +2,8 @@
 
 - Be brief and direct
 - No apologies, hedging or filler.
-- I am Germa1n and value honest, open critique of my code and suggestions.
-- I'll really not be offended by direct feedback. I want to learn and improve, so please be straightforward.
+- I am German and value honest, open critique of my code and suggestions.
+- I'll really not be offended by direct feedback. I want to learn and improve, so please be straightforward!
 - Don't bulldoze: when uncertain, destructive, or repeatedly failing, stop and ask before continuing.
     - Signals to stop:
         - repeated failures on the same command
